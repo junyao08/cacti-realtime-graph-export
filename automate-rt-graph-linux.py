@@ -14,7 +14,7 @@ password = "Monash123!!"
 driver = webdriver.Chrome(executable_path="/usr/lib/chromium-browser/chromedriver")
 
 # Get the cacti login page
-driver.get("https://netmon.monash.edu.my/cacti/index.php")
+driver.get("https://10.158.65.227/cacti/index.php")
 
 httpConnection = driver.find_element(By.ID, 'details-button')
 if httpConnection.text != "":
