@@ -18,6 +18,6 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 driver = webdriver.Chrome(executable_path='/usr/lib/chromedriver', chrome_options=chrome_options)
 
 # Get the cacti login page
-driver.get("https://www.google.com")
+driver.get("https://netmon.monash.edu.my/cacti")
 
-print(driver.find_element('xpath', '/html/body/div[1]/div[5]/div[1]').text)
+print(driver.find_element('xpath', '/html/body/div[2]/div[2]').text)
