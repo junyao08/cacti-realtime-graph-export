@@ -20,10 +20,10 @@ driver = webdriver.Chrome(executable_path='/usr/lib/chromedriver', chrome_option
 # Get the cacti login page
 driver.get("https://10.158.65.227/cacti/index.php")
 
-if driver.find_element(By.ID, 'details-button').text != "":
-    driver.find_element(By.ID, 'details-button').click()
-    # Proceed to localhost
-    driver.find_element('xpath', '//*[@id="proceed-link"]').click()
+# if driver.find_element(By.ID, 'details-button').text != "":
+#     driver.find_element(By.ID, 'details-button').click()
+#     # Proceed to localhost
+#     driver.find_element('xpath', '//*[@id="proceed-link"]').click()
 
 # Get the cacti username and password html tag ID and populate username and password
 driver.find_element(By.ID, 'login_username').send_keys(username)
