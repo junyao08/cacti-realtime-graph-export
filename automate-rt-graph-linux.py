@@ -63,11 +63,11 @@ driver.find_element('xpath', '//*[@id="go"]').click()
 
 # Delay for login to finished
 WebDriverWait(driver, 10).until(
-    EC.presence_of_all_elements_located((By.ID, 'graph_145_realtime'))
+    EC.presence_of_all_elements_located((By.ID, 'graph_152_realtime'))
 )
 
 # Hit the realtime button to generate realtime graph
-driver.find_element('xpath', '//*[@id="graph_152_realtime"]').click()
+driver.find_element(By.ID, 'graph_152_realtime').click()
 
 # Close browser
 #driver.close()
