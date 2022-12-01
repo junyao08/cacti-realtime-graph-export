@@ -67,7 +67,7 @@ WebDriverWait(driver, 10).until(
 )
 
 # Hit the realtime button to generate realtime graph
-driver.find_element(By.ID, 'graph_145_realtime').click()
+driver.find_element('xpath', '//*[@id="graph_152_realtime"]').click()
 
 # Close browser
 #driver.close()
