@@ -21,8 +21,7 @@ driver = webdriver.Chrome(executable_path='/usr/lib/chromedriver', chrome_option
 time.sleep(5)
 
 # Get the cacti login page
-#driver.get("https://10.158.65.227/cacti")
-driver.get("https://www.google.com")
+driver.get("https://10.158.65.227/cacti")
 
 print(driver.find_element('xpath', '/html/body').text)
 
