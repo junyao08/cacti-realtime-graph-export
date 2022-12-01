@@ -20,9 +20,8 @@ driver = webdriver.Chrome(executable_path='/usr/lib/chromedriver', chrome_option
 # Get the cacti login page
 driver.get("https://10.158.65.227/cacti/index.php")
 
-httpConnection = driver.find_element(By.ID, 'details-button')
-if httpConnection.text != "":
-    httpConnection.click()
+if driver.find_element(By.ID, 'details-button').text != "":
+    driver.find_element(By.ID, 'details-button').click()
     # Proceed to localhost
     driver.find_element('xpath', '//*[@id="proceed-link"]').click()
 
