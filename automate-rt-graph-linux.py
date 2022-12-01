@@ -1,7 +1,4 @@
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,14 +10,8 @@ import time
 username = "admin"
 password = "Monash123!!"
 
-options = Options()
-options.add_argument('--headless')
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-dev-shm-usage')
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-
-# # Initialize the chrome driver
-# driver = webdriver.Chrome("chromedriver")
+# Initialize the chrome driver
+driver = webdriver.Chrome(executable_path="/usr/lib/chromium-browser/chromedriver")
 
 # Get the cacti login page
 driver.get("https://netmon.monash.edu.my/cacti/index.php")
@@ -77,6 +68,6 @@ WebDriverWait(driver, 10).until(
 
 # Hit the realtime button to generate realtime graph
 driver.find_element(By.ID, 'graph_145_realtime').click()
-# Close browser
 
+# Close browser
 #driver.close()
