@@ -23,7 +23,7 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 # driver = webdriver.Chrome("chromedriver")
 
 # Get the cacti login page
-driver.get("https://localhost:7443/cacti/index.php")
+driver.get("https://netmon.monash.edu.my/cacti/index.php")
 
 httpConnection = driver.find_element(By.ID, 'details-button')
 if httpConnection.text != "":
