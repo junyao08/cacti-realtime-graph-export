@@ -1,17 +1,16 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support.select import Select
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-import time
 
 # Cacti Credential
 username = "admin"
 password = "Monash123!!"
 
 # Initialize the chrome driver
-driver = webdriver.Chrome(executable_path="/usr/lib/chromium-browser/chromedriver")
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
 # Get the cacti login page
 driver.get("https://10.158.65.227/cacti/index.php")
