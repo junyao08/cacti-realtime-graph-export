@@ -20,4 +20,4 @@ driver = webdriver.Chrome(executable_path='/usr/lib/chromedriver', chrome_option
 # Get the cacti login page
 driver.get("http://10.158.65.227/cacti")
 
-print(driver.find_element('xpath', '/html/body/div[2]/div[2]').text)
+print(driver.find_element('xpath', '//*[@id="login"]/div[2]/table/tbody/tr[4]/td/input').text)
