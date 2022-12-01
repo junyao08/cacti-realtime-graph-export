@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import time
 
 # Cacti Credential
 username = "admin"
@@ -17,7 +18,12 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 # Initialize the chrome driver
 driver = webdriver.Chrome(executable_path='/usr/lib/chromedriver', chrome_options=chrome_options)
 
+time.sleep(5)
+
 # Get the cacti login page
-driver.get("http://10.158.65.227/cacti")
+#driver.get("https://10.158.65.227/cacti")
+driver.get("https://www.google.com")
 
 print(driver.find_element('xpath', '/html/body').text)
+
+driver.close()
