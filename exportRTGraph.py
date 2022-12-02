@@ -2,6 +2,18 @@ import smtplib
 import imghdr
 import os, shutil
 from email.message import EmailMessage
+import logging
+
+#Create and configure logger
+logging.basicConfig(filename="realtime_email.log",
+                    format='%(asctime)s %(message)s',
+                    filemode='w')
+
+# Creating an object that
+logger = logging.getLogger()
+
+# Setting the threshold of logger to DEBUGGER
+logger.setlevel(logging.DEBUG)
 
 Sender_Email = "eugenewong@idgs.my"
 Receiver_Email = "eugenewong@idgs.my"
@@ -45,10 +57,12 @@ for image in images:
         image_name = attachment.name
     newMessage.add_attachment(image_data, maintype='image', subtype=image_type, filename=image_name)
 
-
-with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-    smtp.login(Sender_Email, Password)              
-    smtp.send_message(newMessage)
+try:
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+        smtp.login(Sender_Email, Password)              
+        smtp.send_message(newMessage)
+except:
+    logger.debug('SMTP failed to send message')
 
 # Remove graph imgages after email to receipient.
 deleteAllFiles(imagePath)
