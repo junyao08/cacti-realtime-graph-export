@@ -4,7 +4,7 @@ import os, shutil
 from email.message import EmailMessage
 
 Sender_Email = "eugenewong@idgs.my"
-Receiver_Email = "eugenewong@ktj.edu.my"
+Receiver_Email = "eugenewong@idgs.my"
 Bcc_Email = "tohseng@idgs.my"
 # Password App from Google 
 Password = "gqqnimxdpusfedzo"
