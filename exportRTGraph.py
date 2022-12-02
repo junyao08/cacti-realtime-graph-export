@@ -1,8 +1,13 @@
 import smtplib
 import imghdr
 import os, shutil
-
 from email.message import EmailMessage
+
+Sender_Email = "eugenewong@idgs.my"
+Receiver_Email = "eugenewong@ktj.edu.my"
+Bcc_Email = "tohseng@idgs.my"
+# Password App from Google 
+Password = "gqqnimxdpusfedzo"
 
 def deleteAllFiles(folderPath):
     for file in os.listdir(folderPath):
@@ -17,15 +22,10 @@ def deleteAllFiles(folderPath):
             except Exception as e:
                 print('Failed to delete %s. Reason: %s' % (file_path, e))
 
-Sender_Email = "eugenewong@idgs.my"
-Reciever_Email = "eugenewong@ktj.edu.my"
-Bcc_Email = "tohseng@idgs.my"
-Password = "gqqnimxdpusfedzo"
-
 newMessage = EmailMessage()                         
-newMessage['Subject'] = "Cacti - Export Realtime Graph" 
+newMessage['Subject'] = "Netmon Cacti - Export Realtime Graph" 
 newMessage['From'] = Sender_Email                   
-newMessage['To'] = Reciever_Email
+newMessage['To'] = Receiver_Email
 newMessage['Bcc'] = Bcc_Email
 newMessage.set_content('Realtime graph report') 
 
@@ -45,8 +45,8 @@ for image in images:
         image_name = attachment.name
     newMessage.add_attachment(image_data, maintype='image', subtype=image_type, filename=image_name)
 
+
 with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-    
     smtp.login(Sender_Email, Password)              
     smtp.send_message(newMessage)
 
