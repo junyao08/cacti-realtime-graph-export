@@ -1,6 +1,4 @@
 import smtplib, ssl
-import imghdr
-import os, shutil
 from email.message import EmailMessage
 import logging
 
