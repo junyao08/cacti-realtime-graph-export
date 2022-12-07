@@ -24,7 +24,7 @@ Password = "gqqnimxdpusfedzo"
 def deleteAllFiles(folderPath):
     for file in os.listdir(folderPath):
         # Grab only png files
-        if not file.endswith(".php") and file.endswith(".py") and file.endswith(".txt") and file.endswith('.htaccess'):
+        if not file.endswith(".php") and file.endswith(".py") and file.endswith(".txt") and file.endswith('.htaccess') and file.endswith('.log'):
             file_path = os.path.join(folderPath, file)
             try:
                 if os.path.isfile(file_path) or os.path.islink(file_path):
