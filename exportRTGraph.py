@@ -33,6 +33,7 @@ def deleteAllFiles(folderPath):
                     shutil.rmtree(file_path)
             except Exception as e:
                 print('Failed to delete %s. Reason: %s' % (file_path, e))
+    print('Old realtime graph has been deleted.')
 
 newMessage = EmailMessage()                         
 newMessage['Subject'] = "Netmon Cacti - Export Realtime Graph" 
@@ -47,6 +48,7 @@ images = []
 
 for image in imagesDir:
     if image.endswith(".png"):
+        print('checking png files')
         images.append(image)
 
 for image in images:
@@ -58,12 +60,16 @@ for image in images:
     newMessage.add_attachment(image_data, maintype='image', subtype=image_type, filename=image_name)
 
 try:
+    print('Sending the email...')
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
         smtp.login(Sender_Email, Password)              
         smtp.send_message(newMessage)
+    print('Email is sent. Deleting old realtime graph...')
 except:
     logger.debug('SMTP failed to send message')
+
 
 # Remove graph imgages after email to receipient.
 deleteAllFiles(imagePath)
 
+print('Completed')
