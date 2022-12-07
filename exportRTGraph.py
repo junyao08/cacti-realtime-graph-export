@@ -65,8 +65,9 @@ try:
         smtp.login(Sender_Email, Password)              
         smtp.send_message(newMessage)
     print('Email is sent. Deleting old realtime graph...')
-except:
-    logger.debug('SMTP failed to send message')
+except Exception as e:
+    err = 'SMTP failed to send email: {}'.format(str(e))
+    logger.debug(err)
 
 
 # Remove graph imgages after email to receipient.
