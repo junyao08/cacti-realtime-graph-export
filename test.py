@@ -13,11 +13,11 @@ logger = logging.getLogger()
 # Setting the threshold of logger to DEBUGGER
 logger.setLevel(logging.DEBUG)
 
-Sender_Email = "eugenewong@idgs.my"
+Sender_Email = "eugenewong@idgs.edu.my"
 Receiver_Email = "eugenewong@idgs.my"
 #Bcc_Email = "tohseng@idgs.my"
 # Password App from Google 
-Password = "gqqnimxdpusfedzo"
+Password = "Idgs@1129"
 
 
 newMessage = EmailMessage()                         
