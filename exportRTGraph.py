@@ -13,7 +13,7 @@ logging.basicConfig(filename="realtime_email.log",
 logger = logging.getLogger()
 
 # Setting the threshold of logger to DEBUGGER
-logger.setlevel(logging.DEBUG)
+logger.setLevel(logging.DEBUG)
 
 Sender_Email = "eugenewong@idgs.my"
 Receiver_Email = "eugenewong@idgs.my"
