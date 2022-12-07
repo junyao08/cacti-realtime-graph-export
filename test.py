@@ -1,29 +1,44 @@
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-import time
+import smtplib, ssl
+import imghdr
+import os, shutil
+from email.message import EmailMessage
+import logging
 
-# Cacti Credential
-username = "admin"
-password = "Monash123!!"
+#Create and configure logger
+logging.basicConfig(filename="realtime_email.log",
+                    format='%(asctime)s %(message)s',
+                    filemode='w')
 
-chrome_options = Options()
-chrome_options.binary_location = '/usr/bin/google-chrome'
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument("--start-maximized")
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--disable-dev-shm-usage')
-chrome_options.add_argument('--ignore-certificate-errors')
-# Initialize the chrome driver
-driver = webdriver.Chrome(executable_path='/usr/lib/chromedriver', chrome_options=chrome_options)
+# Creating an object that
+logger = logging.getLogger()
 
-time.sleep(5)
+# Setting the threshold of logger to DEBUGGER
+logger.setLevel(logging.DEBUG)
 
-# Get the cacti login page
-driver.get("https://10.158.65.227/cacti/")
+Sender_Email = "eugenewong@idgs.my"
+Receiver_Email = "eugenewong@idgs.my"
+#Bcc_Email = "tohseng@idgs.my"
+# Password App from Google 
+Password = "gqqnimxdpusfedzo"
 
-print(driver.find_element('xpath', '/html/body').text)
 
-driver.close()
+newMessage = EmailMessage()                         
+newMessage['Subject'] = "Netmon Cacti - Export Realtime Graph" 
+newMessage['From'] = Sender_Email                   
+newMessage['To'] = Receiver_Email
+#newMessage['Bcc'] = Bcc_Email
+newMessage.set_content('Realtime graph report')
+
+message = "This is my message"
+newMessage.set_content(message)
+
+try:
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+        smtp.login(Sender_Email, Password)              
+        smtp.send_message(newMessage)
+    logger.debug('Email is sent. Deleting old realtime graph...')
+except Exception as e:
+    err = 'SMTP failed to send email: {}'.format(str(e))
+    logger.error(err)
+
