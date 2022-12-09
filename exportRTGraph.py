@@ -1,5 +1,4 @@
 import smtplib, ssl
-import imghdr
 import os, shutil
 from email.message import EmailMessage
 import logging
@@ -48,6 +47,7 @@ images = []
 for image in imagesDir:
     if image.endswith(".png"):
         images.append(image)
+        logger.debug(image)
 
 for image in images:
     # Open image file in binary mode
