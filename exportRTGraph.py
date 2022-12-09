@@ -53,9 +53,8 @@ for image in images:
     # Open image file in binary mode
     with open(image, "rb") as attachment:
         image_data = attachment.read()
-        image_type = imghdr.what(attachment.name)
         image_name = attachment.name
-    newMessage.add_attachment(image_data, maintype='image', subtype=image_type, filename=image_name)
+    newMessage.add_attachment(image_data, maintype='image', filename=image_name)
 
 try:
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
