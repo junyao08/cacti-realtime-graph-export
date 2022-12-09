@@ -7,7 +7,7 @@ import os, shutil
 import logging
 
 #Create and configure logger
-logging.basicConfig(filename="realtime_email.log",
+logging.basicConfig(filename="email-rt-graph-email.log",
                     format='%(asctime)s %(message)s',
                     filemode='w')
 
@@ -73,7 +73,6 @@ imagesDir = os.listdir(imagePath)
 
 for image in imagesDir:
     attach_file_to_email(email_message, image)
-    print(image)
     
 # Attach more (documents)
 # attach_file_to_email(email_message, 'chart.png')
