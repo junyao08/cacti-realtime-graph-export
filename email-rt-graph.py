@@ -84,11 +84,14 @@ email_string = email_message.as_string()
 
 # Connect to the Gmail SMTP server and Send Email
 try:
+    print('Sending email...')
     logger.info('Sending email...')
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
         server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string) 
     logger.info('Email is sent')
+    print('Email is sent')
 except Exception as e:
     logger.error("Error sending".format(str(e)))
+    print("Error:".format(str(e)))
