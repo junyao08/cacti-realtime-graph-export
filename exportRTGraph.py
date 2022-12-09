@@ -47,7 +47,7 @@ images = []
 for image in imagesDir:
     if image.endswith(".png"):
         images.append(image)
-        logger.debug(image)
+        logger.debug("image found: ", image)
 
 for image in images:
     # Open image file in binary mode
