@@ -58,8 +58,7 @@ for image in images:
     newMessage.add_attachment(image_data, maintype='image', subtype=image_type, filename=image_name)
 
 try:
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
         smtp.login(Sender_Email, Password)              
         smtp.send_message(newMessage)
     logger.debug('Email is sent. Deleting old realtime graph...')
