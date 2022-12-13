@@ -28,15 +28,19 @@ html = '''
 def attach_file_to_email(email_message, filename):
     # Open the attachment file for reading in binary mode, and make it a MIMEApplication class
     if filename.endswith('.png'):
-        with open(filename, "rb") as f:
-            file_attachment = MIMEApplication(f.read())
-        # Add header/name to the attachments    
-        file_attachment.add_header(
-            "Content-Disposition",
-            f"attachment; filename= {filename}",
-        )
-        # Attach the file to the message
-        email_message.attach(file_attachment)
+        try:
+            with open(filename, "rb") as f:
+                file_attachment = MIMEApplication(f.read())
+            # Add header/name to the attachments    
+            file_attachment.add_header(
+                "Content-Disposition",
+                f"attachment; filename= {filename}",
+            )
+            # Attach the file to the message
+            email_message.attach(file_attachment)
+            logger.debug("File attachment: ", file_attachment)
+        except Exception as e:
+            logging.error('Error sending png: ', e)
 
 # Function to delete realtime graph that has been sent.
 def deleteAllFiles(folderPath):
@@ -93,5 +97,6 @@ except Exception as e:
     logger.error("Error sending", e)
     print("Error:", e)
 
-
 server.close()
+
+deleteAllFiles(imagePath)
