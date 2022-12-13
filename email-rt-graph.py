@@ -47,14 +47,14 @@ def attach_file_to_email(email_message, filename):
 def deleteAllFiles(folderPath):
     for file in os.listdir(folderPath):
         # Grab only png files
-        if not file.endswith(".php") and file.endswith(".py") and file.endswith(".txt") and file.endswith('.htaccess') and file.endswith('.log'):
+        if not file.endswith(".php") and not file.endswith(".py") and not file.endswith(".txt") and not file.endswith('.htaccess') and not file.endswith('.log') and not file.endswith(".git") and not file.endswith('.DS_Store'):
             file_path = os.path.join(folderPath, file)
             try:
                 if os.path.isfile(file_path) or os.path.islink(file_path):
                     os.unlink(file_path)
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
-                print('File removed successfully')
+                print('File removed: ', file)
             except Exception as e:
                 logger.error('Failed to delete %s. Reason: %s' % (file_path, e))
 
