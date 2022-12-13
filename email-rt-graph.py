@@ -26,6 +26,11 @@ html = '''
 
 # Function to attach files as MIMEApplication to the email
 def attach_file_to_email(email_message, filename):
+    # Check if file is png
+    if os.path.isfile(filename.endswith('.png')) == False:
+        print('File is not png')
+
+    print('sending png file')
     # Open the attachment file for reading in binary mode, and make it a MIMEApplication class
     if filename.endswith('.png'):
         with open(filename, "rb") as f:
