@@ -72,6 +72,9 @@ imagePath = "."
 imagesDir = os.listdir(imagePath)
 
 for image in imagesDir:
+    path = os.path.join(imagePath, image)
+    if not os.path.isfile(imagePath):
+        continue
     attach_file_to_email(email_message, image)
 print('Png files attached successfully')
 
@@ -83,8 +86,8 @@ print('Convert it as a string')
 try:
     print('Sending email...')
     logger.info('Sending email...')
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+    #context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string) 
     logger.info('Email is sent')
@@ -92,3 +95,6 @@ try:
 except Exception as e:
     logger.error("Error sending", e)
     print("Error:", e)
+
+
+server.close()
