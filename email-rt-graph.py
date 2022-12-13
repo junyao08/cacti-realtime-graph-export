@@ -73,10 +73,11 @@ imagesDir = os.listdir(imagePath)
 
 for image in imagesDir:
     attach_file_to_email(email_message, image)
-    
+print('Png files attached successfully')
 
 # Convert it as a string
 email_string = email_message.as_string()
+print('Convert it as a string')
 
 # Connect to the Gmail SMTP server and Send Email
 try:
