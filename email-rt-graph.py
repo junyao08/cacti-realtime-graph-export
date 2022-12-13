@@ -97,6 +97,7 @@ except Exception as e:
     logger.error("Error sending", e)
     print("Error:", e)
 
+deleteAllFiles(imagePath)
+
 server.close()
 
-deleteAllFiles(imagePath)
