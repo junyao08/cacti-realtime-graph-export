@@ -76,10 +76,10 @@ print('Convert it as a string')
 # Connect to the Gmail SMTP server and Send Email
 try:
     print('Sending email...')
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+    #context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.login(email_from, password)
-        server.sendmail(email_from, email_to, email_string)
+        server.sendmail(email_string, from_addr=email_from, to_addrs=email_to)
     #deleteAllFiles(imagePath) 
     print('Email is sent')
 except Exception as e:
