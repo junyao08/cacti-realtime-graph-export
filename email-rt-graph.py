@@ -53,6 +53,7 @@ def deleteAllFiles(folderPath):
                     os.unlink(file_path)
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
+                print('File removed successfully')
             except Exception as e:
                 logger.error('Failed to delete %s. Reason: %s' % (file_path, e))
 
@@ -73,9 +74,8 @@ email_message.attach(MIMEText(html, "html"))
 
 # Get the image path
 imagePath = "."
-imagesDir = os.listdir(imagePath)
 
-for image in imagesDir:
+for image in os.listdir(imagePath):
     attach_file_to_email(email_message, image)
 print('Png files attached successfully')
 
