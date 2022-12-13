@@ -72,9 +72,6 @@ imagePath = "."
 imagesDir = os.listdir(imagePath)
 
 for image in imagesDir:
-    path = os.path.join(imagePath, image)
-    if not os.path.isfile(imagePath):
-        continue
     attach_file_to_email(email_message, image)
 print('Png files attached successfully')
 
