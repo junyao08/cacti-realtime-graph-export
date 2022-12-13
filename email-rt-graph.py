@@ -40,7 +40,6 @@ def attach_file_to_email(email_message, filename):
             email_message.attach(file_attachment)
             logger.debug("File attachment: ", file_attachment)
             print('File name: ', filename)
-            print(file_attachment)
         except Exception as e:
             logging.error('Error sending png: ', e)
 
