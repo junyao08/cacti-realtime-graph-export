@@ -4,16 +4,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import os, shutil
-import logging
-
-#Create and configure logger
-logging.basicConfig(filename="email-rt-graph-email.log",
-                    format='%(asctime)s %(message)s',
-                    filemode='w')
-
-# Creating an object that
-logger = logging.getLogger()
-
 
 # Define the HTML document
 html = '''
@@ -38,16 +28,15 @@ def attach_file_to_email(email_message, filename):
             )
             # Attach the file to the message
             email_message.attach(file_attachment)
-            logger.debug("File attachment: ", file_attachment)
             print('File name: ', filename)
         except Exception as e:
-            logging.error('Error sending png: ', e)
+            print('Error sending png: ', e)
 
 # Function to delete realtime graph that has been sent.
 def deleteAllFiles(folderPath):
     for file in os.listdir(folderPath):
         # Grab only png files
-        if not file.endswith(".php") and not file.endswith(".py") and not file.endswith(".txt") and not file.endswith('.htaccess') and not file.endswith('.log') and not file.endswith(".git"):
+        if not file.endswith(".php") and not file.endswith(".py") and not file.endswith(".txt") and not file.endswith('.htaccess') and not file.endswith('.log') and not file.endswith(".git") and not file.endswith('.DS_Store'):
             file_path = os.path.join(folderPath, file)
             try:
                 if os.path.isfile(file_path) or os.path.islink(file_path):
@@ -56,7 +45,7 @@ def deleteAllFiles(folderPath):
                     shutil.rmtree(file_path)
                 print('File removed: ', file)
             except Exception as e:
-                logger.error('Failed to delete %s. Reason: %s' % (file_path, e))
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
 # Set up the email addresses and password. Please replace below with your email address and password
@@ -87,18 +76,14 @@ print('Convert it as a string')
 # Connect to the Gmail SMTP server and Send Email
 try:
     print('Sending email...')
-    logger.info('Sending email...')
     #context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string)
     deleteAllFiles(imagePath) 
-    logger.info('Email is sent')
     print('Email is sent')
 except Exception as e:
-    logger.error("Error sending", e)
-    print("Error:", e)
-
+    print("Sending Error:", e)
 
 server.close()
 
