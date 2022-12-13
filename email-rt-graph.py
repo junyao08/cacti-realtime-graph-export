@@ -90,14 +90,14 @@ try:
     #context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.login(email_from, password)
-        server.sendmail(email_from, email_to, email_string) 
+        server.sendmail(email_from, email_to, email_string)
+    deleteAllFiles(imagePath) 
     logger.info('Email is sent')
     print('Email is sent')
 except Exception as e:
     logger.error("Error sending", e)
     print("Error:", e)
 
-deleteAllFiles(imagePath)
 
 server.close()
 
