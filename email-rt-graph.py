@@ -74,10 +74,6 @@ imagesDir = os.listdir(imagePath)
 for image in imagesDir:
     attach_file_to_email(email_message, image)
     
-# Attach more (documents)
-# attach_file_to_email(email_message, 'chart.png')
-# attach_file_to_email(email_message, 'excel_report.xlsx')
-# attach_file_to_email(email_message, 'fpdf_pdf_report.pdf')
 
 # Convert it as a string
 email_string = email_message.as_string()

@@ -1,42 +1,73 @@
-import smtplib, ssl
-from email.message import EmailMessage
-import logging
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
-#Create and configure logger
-logging.basicConfig(filename="realtime_email.log",
-                    format='%(asctime)s %(message)s',
-                    filemode='w')
+# Cacti Credential
+username = "admin"
+password = "Monash123!!"
 
-# Creating an object that
-logger = logging.getLogger()
+chrome_options = Options()
+chrome_options.binary_location = '/usr/bin/google-chrome'
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument("--start-maximized")
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument('--ignore-certificate-errors')
 
-# Setting the threshold of logger to DEBUGGER
-logger.setLevel(logging.DEBUG)
+# Initialize the chrome driver
+driver = webdriver.Chrome(executable_path='/usr/lib/chromedriver', chrome_options=chrome_options)
 
-Sender_Email = "eugenewong@idgs.edu.my"
-Receiver_Email = "eugenewong@idgs.my"
-#Bcc_Email = "tohseng@idgs.my"
-# Password App from Google 
-Password = "Idgs@1129"
+# Get the cacti login page
+driver.get("https://10.158.65.227/cacti/")
+
+# Get the cacti username and password html tag ID and populate username and password
+driver.find_element(By.ID, 'login_username').send_keys(username)
+driver.find_element(By.ID, 'login_password').send_keys(password)
+
+# Get login button
+driver.find_element("xpath", '//*[@id="login"]/div[2]/table/tbody/tr[4]/td/input').click()
+
+# Delay for login to finished
+WebDriverWait(driver, 3).until(
+    EC.presence_of_all_elements_located((By.ID, 'tab-graphs'))
+)
+
+# Open Graph page
+driver.find_element('xpath', '//*[@id="tab-graphs"]').click()
 
 
-newMessage = EmailMessage()                         
-newMessage['Subject'] = "Netmon Cacti - Export Realtime Graph" 
-newMessage['From'] = Sender_Email                   
-newMessage['To'] = Receiver_Email
-#newMessage['Bcc'] = Bcc_Email
-newMessage.set_content('Realtime graph report')
+# Select Preview
+driver.find_element('xpath', '//*[@id="preview"]').click()
 
-message = "This is my message"
-newMessage.set_content(message)
+# Delay for login to finished
+WebDriverWait(driver, 40).until(
+    EC.presence_of_all_elements_located((By.ID, 'graph_template_id_ms'))
+)
 
-try:
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-        smtp.login(Sender_Email, Password)              
-        smtp.send_message(newMessage)
-    logger.debug('Email is sent. Deleting old realtime graph...')
-except Exception as e:
-    err = 'SMTP failed to send email: {}'.format(str(e))
-    logger.error(err)
+# Search for device to generate realtime graphs
+filter = driver.find_element('xpath', '//*[@id="rfilter"]')
 
+if filter.text == "":
+    filter.send_keys('maxis')
+
+# Delay for login to finished
+WebDriverWait(driver, 10).until(
+    EC.presence_of_all_elements_located((By.ID, 'graph_template_id_ms'))
+)
+
+# Hit go button to search
+driver.find_element('xpath', '//*[@id="go"]').click()
+
+
+# Delay for login to finished
+WebDriverWait(driver, 10).until(
+    EC.presence_of_all_elements_located((By.ID, 'graph_152_realtime'))
+)
+
+# Hit the realtime button to generate realtime graph
+driver.find_element(By.ID, 'graph_152_realtime').click()
+
+# Close browser
+#driver.close()
