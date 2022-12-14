@@ -63,7 +63,7 @@ email_message['Subject'] = f'Netmon - Realtime Graph'
 email_message.attach(MIMEText(html, "html"))
 
 # Get the image path
-imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
+imagePath = "."
 
 for image in os.listdir(imagePath):
     attach_file_to_email(email_message, image)
@@ -77,7 +77,8 @@ print('Convert it as a string')
 try:
     print('Sending email...')
     #context = ssl.create_default_context()
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+        server.starttls()
         server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string)
     #deleteAllFiles(imagePath) 
