@@ -37,37 +37,36 @@ WebDriverWait(driver, 3).until(
 # Open Graph page
 driver.find_element('xpath', '//*[@id="tab-graphs"]').click()
 
-
-# Select Preview
-driver.find_element('xpath', '//*[@id="preview"]').click()
+# Select Tree
+driver.find_element('xpath', '///*[@id="treeview"]').click()
 
 # Delay for login to finished
 WebDriverWait(driver, 40).until(
     EC.presence_of_all_elements_located((By.ID, 'graph_template_id_ms'))
 )
 
-# Search for device to generate realtime graphs
-filter = driver.find_element('xpath', '//*[@id="rfilter"]')
+# Click dropdown to display all branches and
+driver.find_element('xpath', '//*[@id="tree_anchor-1"]/i').click()
 
-if filter.text == "":
-    filter.send_keys('maxis')
-
-# Delay for login to finished
-WebDriverWait(driver, 10).until(
-    EC.presence_of_all_elements_located((By.ID, 'graph_template_id_ms'))
-)
-
-# Hit go button to search
-driver.find_element('xpath', '//*[@id="go"]').click()
+# Click on Inter-Branch
+driver.find_element('xpath', '//*[@id="tbranch-6_anchor"]').click()
+# Realtime Graph for all graphs
+# NOTE: GRAPH WILL NOT WORK IF THE TEMPLATE ID IS CHANGED
+driver.find_element('xpath','//*[@id="graph_523_realtime"]').click()
+driver.find_element('xpath','//*[@id="graph_255_realtime"]').click()
 
 
-# Delay for login to finished
-WebDriverWait(driver, 10).until(
-    EC.presence_of_all_elements_located((By.ID, 'graph_152_realtime'))
-)
+#Click on Core Infrastructure
+driver.find_element('xpath', '//*[@id="tbranch-5_anchor"]').click()
+# Realtime Graph for all graphs
+driver.find_element('xpath', '//*[@id="graph_514_realtime"]').click()
+driver.find_element('xpath', '//*[@id="graph_512_realtime"]').click()
+driver.find_element('xpath', '//*[@id="graph_515_realtime"]').click()
+driver.find_element('xpath', '//*[@id="graph_513_realtime"]').click()
+driver.find_element('xpath', '//*[@id="graph_508_realtime"]').click()
+driver.find_element('xpath', '//*[@id="graph_507_realtime"]').click()
+driver.find_element('xpath', '//*[@id="graph_510_realtime"]').click()
 
-# Hit the realtime button to generate realtime graph
-driver.find_element(By.ID, 'graph_152_realtime').click()
 
 # Close browser
 #driver.close()
