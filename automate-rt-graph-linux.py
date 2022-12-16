@@ -49,7 +49,7 @@ WebDriverWait(driver, 10).until(
 driver.find_element('xpath', '//*[@id="tree_anchor-1"]/i').click()
 
 # Click on Inter-Branch
-driver.find_element('xpath', '//*[@id="tbranch-6_anchor"]').click()
+driver.find_element(By.ID, 'tbranch-6_anchor').click()
 # Realtime Graph for all graphs
 # NOTE: GRAPH WILL NOT WORK IF THE TEMPLATE ID IS CHANGED
 driver.find_element('xpath','//*[@id="graph_523_realtime"]').click()
@@ -57,7 +57,7 @@ driver.find_element('xpath','//*[@id="graph_255_realtime"]').click()
 
 
 #Click on Core Infrastructure
-driver.find_element('xpath', '//*[@id="tbranch-5_anchor"]').click()
+driver.find_element(By.ID, 'tbranch-5_anchor').click()
 # Realtime Graph for all graphs
 driver.find_element('xpath', '//*[@id="graph_514_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_512_realtime"]').click()
