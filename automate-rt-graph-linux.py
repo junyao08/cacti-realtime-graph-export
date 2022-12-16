@@ -82,4 +82,4 @@ driver.find_element('xpath', '//*[@id="graph_510_realtime"]').click()
 
 
 # Close browser
-#driver.close()
+driver.close()
