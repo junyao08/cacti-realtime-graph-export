@@ -49,9 +49,9 @@ WebDriverWait(driver, 15).until(
 driver.find_element('xpath', '//*[@id="tree_anchor-1"]').click()
 
 # Delay for login to finished
-# WebDriverWait(driver, 5).until(
-#     EC.presence_of_all_elements_located((By.ID, 'tbranch-6_anchor'))
-# )
+WebDriverWait(driver, 5).until(
+    EC.presence_of_all_elements_located((By.ID, 'tbranch-6_anchor'))
+)
 
 # Click on Inter-Branch
 driver.find_element(By.ID, 'tbranch-6_anchor').click()
