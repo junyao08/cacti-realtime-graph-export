@@ -43,7 +43,7 @@ driver.find_element(By.ID, 'treeview').click()
 
 # Delay for login to finished
 WebDriverWait(driver, 40).until(
-    EC.presence_of_all_elements_located(('xpath', '//*[@id="tree_anchor-1"]/i'))
+    EC.presence_of_all_elements_located(('xpath', '//*[@id="tree_anchor-1_anchor"]'))
 )
 
 if driver.find_element('xpath', '//*[@id="tree_anchor-1"]').get_attribute('class') == 'jstree-node  jstree-closed jstree-last':
