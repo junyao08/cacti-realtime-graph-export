@@ -42,7 +42,7 @@ driver.find_element(By.ID, 'treeview').click()
 
 # Delay for login to finished
 WebDriverWait(driver, 15).until(
-    EC.presence_of_all_elements_located((By.ID, 'tree_anchor-1_anchor'))
+    EC.presence_of_all_elements_located(('xpath', '//*[@id="tree_anchor-1"]/i'))
 )
 
 # Click dropdown to display all branches 
