@@ -8,19 +8,15 @@ from selenium.webdriver.common.by import By
 username = "admin"
 password = "Monash123!!"
 
-chrome_options = Options()
-chrome_options.binary_location = '/usr/bin/google-chrome'
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument("--start-maximized")
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--disable-dev-shm-usage')
-chrome_options.add_argument('--ignore-certificate-errors')
-
 # Initialize the chrome driver
-driver = webdriver.Chrome(executable_path='/usr/lib/chromedriver', chrome_options=chrome_options)
+driver = webdriver.Chrome()
 
 # Get the cacti login page
-driver.get("https://localhost:7008/cacti/")
+driver.get("https://localhost:7009/cacti/")
+
+# Not secure
+driver.find_element('xpath', '//*[@id="details-button"]').click()
+driver.find_element('xpath', '//*[@id="proceed-link"]').click()
 
 # Get the cacti username and password html tag ID and populate username and password
 driver.find_element(By.ID, 'login_username').send_keys(username)
@@ -38,24 +34,47 @@ WebDriverWait(driver, 3).until(
 driver.find_element('xpath', '//*[@id="tab-graphs"]').click()
 
 # Select Tree
-driver.find_element('xpath', '///*[@id="treeview"]').click()
+driver.find_element(By.ID, 'treeview').click()
 
 # Delay for login to finished
-WebDriverWait(driver, 40).until(
-    EC.presence_of_all_elements_located((By.ID, 'graph_template_id_ms'))
+WebDriverWait(driver, 15).until(
+    EC.presence_of_all_elements_located(('xpath', '//*[@id="tree_anchor-1"]/i'))
 )
 
-# Click dropdown to display all branches and
+# Click dropdown to display all branches 
 driver.find_element('xpath', '//*[@id="tree_anchor-1"]/i').click()
 
+# Delay for login to finished
+WebDriverWait(driver, 5).until(
+    EC.presence_of_all_elements_located((By.ID, 'tbranch-6_anchor'))
+)
+
 # Click on Inter-Branch
-driver.find_element('xpath', '//*[@id="tbranch-6_anchor"]').click()
+driver.find_element(By.ID, 'tbranch-6_anchor').click()
+# Delay for login to finished
+WebDriverWait(driver, 10).until(
+    EC.presence_of_all_elements_located((By.ID, 'graph_523_realtime'))
+)
 # Realtime Graph for all graphs
 # NOTE: GRAPH WILL NOT WORK IF THE TEMPLATE ID IS CHANGED
 driver.find_element('xpath','//*[@id="graph_523_realtime"]').click()
-driver.find_element('xpath','//*[@id="graph_255_realtime"]').click()
+driver.find_element('xpath','//*[@id="graph_1281_realtime"]').click()
 
 
+#Click on Core Infrastructure
+driver.find_element(By.ID, 'tbranch-5_anchor').click()
+# Delay for login to finished
+WebDriverWait(driver, 10).until(
+    EC.presence_of_all_elements_located((By.ID, 'graph_514_realtime'))
+)
+# Realtime Graph for all graphs
+driver.find_element('xpath', '//*[@id="graph_514_realtime"]').click()
+driver.find_element('xpath', '//*[@id="graph_512_realtime"]').click()
+driver.find_element('xpath', '//*[@id="graph_515_realtime"]').click()
+driver.find_element('xpath', '//*[@id="graph_513_realtime"]').click()
+driver.find_element('xpath', '//*[@id="graph_508_realtime"]').click()
+driver.find_element('xpath', '//*[@id="graph_507_realtime"]').click()
+driver.find_element('xpath', '//*[@id="graph_510_realtime"]').click()
 
 
 # Close browser
