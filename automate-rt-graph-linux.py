@@ -38,14 +38,14 @@ WebDriverWait(driver, 3).until(
 driver.find_element('xpath', '//*[@id="tab-graphs"]').click()
 
 # Select Tree
-driver.find_element('xpath', '///*[@id="treeview"]').click()
+driver.find_element(By.ID, 'treeview').click()
 
 # Delay for login to finished
 WebDriverWait(driver, 40).until(
     EC.presence_of_all_elements_located((By.ID, 'graph_template_id_ms'))
 )
 
-# Click dropdown to display all branches and
+# Click dropdown to display all branches 
 driver.find_element('xpath', '//*[@id="tree_anchor-1"]/i').click()
 
 # Click on Inter-Branch
