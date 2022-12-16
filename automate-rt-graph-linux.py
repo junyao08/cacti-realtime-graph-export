@@ -41,7 +41,7 @@ driver.find_element('xpath', '//*[@id="tab-graphs"]').click()
 driver.find_element(By.ID, 'treeview').click()
 
 # Delay for login to finished
-WebDriverWait(driver, 10).until(
+WebDriverWait(driver, 15).until(
     EC.presence_of_all_elements_located((By.ID, 'tree_anchor-1_anchor'))
 )
 
