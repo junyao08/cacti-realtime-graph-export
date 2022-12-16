@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import time
 
 # Cacti Credential
 username = "admin"
@@ -80,6 +81,7 @@ driver.find_element('xpath', '//*[@id="graph_508_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_507_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_510_realtime"]').click()
 
+time.sleep(3600)
 
 # Close browser
 driver.close()
