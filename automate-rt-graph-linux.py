@@ -46,8 +46,10 @@ WebDriverWait(driver, 20).until(
     EC.presence_of_all_elements_located(('xpath', '//*[@id="tree_anchor-1"]/i'))
 )
 
-# Click dropdown to display all branches 
-driver.find_element('xpath', '//*[@id="tree_anchor-1"]/i').click()
+dropdrown = driver.find_element('xpath', '//*[@id="tree_anchor-1"]').get_attribute('class')
+if dropdrown.contains('jstree-closed'):
+    # Click dropdown to display all branches 
+    driver.find_element('xpath', '//*[@id="tree_anchor-1"]/i').click()
 
 # Delay for login to finished
 WebDriverWait(driver, 5).until(
@@ -81,7 +83,6 @@ driver.find_element('xpath', '//*[@id="graph_508_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_507_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_510_realtime"]').click()
 
-time.sleep(3600)
 
 # Close browser
-driver.close()
+#driver.close()
