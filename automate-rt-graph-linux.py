@@ -46,8 +46,7 @@ WebDriverWait(driver, 40).until(
     EC.presence_of_all_elements_located(('xpath', '//*[@id="tree_anchor-1"]/i'))
 )
 
-dropdrown = driver.find_element('xpath', '//*[@id="tree_anchor-1"]').get_attribute('class')
-if dropdrown == 'jstree-node  jstree-closed jstree-last':
+if driver.find_element('xpath', '//*[@id="tree_anchor-1"]').get_attribute('class') == 'jstree-node  jstree-closed jstree-last':
     # Click dropdown to display all branches 
     driver.find_element('xpath', '//*[@id="tree_anchor-1"]/i').click()
 
