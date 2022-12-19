@@ -41,10 +41,12 @@ driver.find_element('xpath', '//*[@id="tab-graphs"]').click()
 # Select Tree
 driver.find_element(By.ID, 'treeview').click()
 
-# Delay for login to finished
-WebDriverWait(driver, 120).until(
-    EC.presence_of_all_elements_located(('xpath', '//*[@id="tree_anchor-1_anchor"]'))
-)
+# # Delay for login to finished
+# WebDriverWait(driver, 120).until(
+#     EC.presence_of_all_elements_located(('xpath', '//*[@id="tree_anchor-1_anchor"]'))
+# )
+
+time.sleep(20)
 
 if driver.find_element('xpath', '//*[@id="tree_anchor-1"]').get_attribute('class') == 'jstree-node  jstree-closed jstree-last':
     # Click dropdown to display all branches 
