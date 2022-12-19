@@ -1,5 +1,5 @@
 # Import modules
-import smtplib, ssl
+import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
@@ -94,8 +94,8 @@ print('Convert it as a string')
 # Connect to the Gmail SMTP server and Send Email
 try:
     print('Sending email...')
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+    # context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.set_debuglevel(1)
         server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string)
