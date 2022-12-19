@@ -42,7 +42,7 @@ def attach_file_to_email(email_message, filename):
     # Open the attachment file for reading in binary mode, and make it a MIMEApplication class
     if filename.endswith('.png'):
         try:
-            img = Image.open(filename)
+            img = Image.open('./'+filename)
             img.verify()
             logger.error('Image is ok: ', filename)
         except (IOError, SyntaxError) as e:
