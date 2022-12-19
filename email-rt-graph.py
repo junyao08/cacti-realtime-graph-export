@@ -95,13 +95,12 @@ print('Convert it as a string')
 try:
     print('Sending email...')
     # context = ssl.create_default_context()
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, local_hostname=None, timeout=30) as server:
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.ehlo()
         server.set_debuglevel(1)
         server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string)
         server.close()
-        server.noop()
     deleteAllFiles(imagePath) 
     print('Email is sent')
 except Exception as e:
