@@ -14,6 +14,7 @@ f_handler = logging.FileHandler('email.log')
 c_handler.setLevel(logging.WARNING)
 f_handler.setLevel(logging.ERROR)
 
+
 # Define the HTML document
 html = '''
     <html>
@@ -30,6 +31,7 @@ def attach_file_to_email(email_message, filename):
         try:
             img = Image.open(filename)
             img.verify()
+            logger.debug('Image is ok')
         except (IOError, SyntaxError) as e:
             logger.error('Bad file:', filename)
 
@@ -51,7 +53,7 @@ def attach_file_to_email(email_message, filename):
 def deleteAllFiles(folderPath):
     for file in os.listdir(folderPath):
         # Grab only png files
-        if file.endswith(".rrd") and file.endswith(".png"):
+        if file.endswith(".rrd") or file.endswith(".png"):
             file_path = os.path.join(folderPath, file)
             try:
                 if os.path.isfile(file_path) or os.path.islink(file_path):
@@ -97,7 +99,7 @@ try:
         logger.info(server.set_debuglevel(1))
         server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string)
-    deleteAllFiles(imagePath) 
+    #deleteAllFiles(imagePath) 
     print('Email is sent')
 except Exception as e:
     logger.error("Sending Error:", e)
