@@ -8,9 +8,12 @@ from PIL import Image
 import logging
 
 
+# Create a custom logger
 logger = logging.getLogger(__name__)
+
+# Create handlers
 c_handler = logging.StreamHandler()
-f_handler = logging.FileHandler('email.log')
+f_handler = logging.FileHandler('file.log')
 c_handler.setLevel(logging.WARNING)
 f_handler.setLevel(logging.ERROR)
 
@@ -23,6 +26,7 @@ f_handler.setFormatter(f_format)
 # Add handlers to the logger
 logger.addHandler(c_handler)
 logger.addHandler(f_handler)
+
 
 # Define the HTML document
 html = '''
@@ -40,7 +44,7 @@ def attach_file_to_email(email_message, filename):
         try:
             img = Image.open(filename)
             img.verify()
-            logger.warning('Image is ok')
+            logger.error('Image is ok')
         except (IOError, SyntaxError) as e:
             logger.error('Bad file:', filename)
 
@@ -105,7 +109,7 @@ try:
     #context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.set_debuglevel(1)
-        logger.warning(server.set_debuglevel(1))
+        logger.error(server.set_debuglevel(1))
         server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string)
     #deleteAllFiles(imagePath) 
