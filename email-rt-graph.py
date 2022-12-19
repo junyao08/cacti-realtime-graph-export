@@ -14,6 +14,15 @@ f_handler = logging.FileHandler('email.log')
 c_handler.setLevel(logging.WARNING)
 f_handler.setLevel(logging.ERROR)
 
+# Create formatters and add it to handlers
+c_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
+f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+c_handler.setFormatter(c_format)
+f_handler.setFormatter(f_format)
+
+# Add handlers to the logger
+logger.addHandler(c_handler)
+logger.addHandler(f_handler)
 
 # Define the HTML document
 html = '''
@@ -31,7 +40,7 @@ def attach_file_to_email(email_message, filename):
         try:
             img = Image.open(filename)
             img.verify()
-            logger.debug('Image is ok')
+            logger.warning('Image is ok')
         except (IOError, SyntaxError) as e:
             logger.error('Bad file:', filename)
 
@@ -96,7 +105,7 @@ try:
     #context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.set_debuglevel(1)
-        logger.info(server.set_debuglevel(1))
+        logger.warning(server.set_debuglevel(1))
         server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string)
     #deleteAllFiles(imagePath) 
