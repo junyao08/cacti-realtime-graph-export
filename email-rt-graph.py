@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import os, shutil
 import logging
-from PIL import Image
+import cairosvg
 
 # Create a custom logger
 logger = logging.getLogger(__name__)
@@ -51,9 +51,7 @@ def attach_file_to_email(email_message, filename):
 
 def convert_svg_to_png(filename):
     if filename.endswith('.png') or filename.endswith('.svg'):
-        img = Image.open(filename)
-        # Convert the svg to png format
-        img.save(filename[-3:], 'PNG')
+        cairosvg.svg2png(file_obj=open(filename,'rb'), write_to=filename[-3:])
 
 # Function to delete realtime graph that has been sent.
 def deleteAllFiles(folderPath):
