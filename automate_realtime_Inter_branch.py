@@ -60,7 +60,7 @@ WebDriverWait(driver, 5).until(
 # Click on Inter-Branch
 driver.find_element(By.ID, 'tbranch-6_anchor').click()
 
-time.sleep(15)
+time.sleep(10)
 
 # Realtime Graph for all graphs
 # NOTE: GRAPH WILL NOT WORK IF THE TEMPLATE ID IS CHANGED

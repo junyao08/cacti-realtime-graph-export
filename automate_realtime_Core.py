@@ -60,7 +60,7 @@ WebDriverWait(driver, 5).until(
 #Click on Core Infrastructure
 driver.find_element(By.ID, 'tbranch-5_anchor').click()
 
-time.sleep(15)
+time.sleep(10)
 
 # Realtime Graph for all graphs
 driver.find_element('xpath', '//*[@id="graph_514_realtime"]').click()
@@ -69,6 +69,7 @@ driver.find_element('xpath', '//*[@id="graph_515_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_513_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_508_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_507_realtime"]').click()
+time.sleep(5)
 driver.find_element('xpath', '//*[@id="graph_510_realtime"]').click()
 
 
