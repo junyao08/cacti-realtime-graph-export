@@ -71,10 +71,9 @@ driver.find_element('xpath','//*[@id="graph_1281_realtime"]').click()
 
 #Click on Core Infrastructure
 driver.find_element(By.ID, 'tbranch-5_anchor').click()
-# Delay for login to finished
-WebDriverWait(driver, 10).until(
-    EC.presence_of_all_elements_located((By.ID, 'graph_514_realtime'))
-)
+
+time.sleep(15)
+
 # Realtime Graph for all graphs
 driver.find_element('xpath', '//*[@id="graph_514_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_512_realtime"]').click()
