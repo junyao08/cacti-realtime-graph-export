@@ -6,6 +6,8 @@ from email.mime.application import MIMEApplication
 import os, shutil
 import logging
 import cairosvg
+from PIL import Image
+import imghdr
 
 # Create a custom logger
 logger = logging.getLogger(__name__)
@@ -49,9 +51,6 @@ def attach_file_to_email(email_message, filename):
         except Exception as e:
             logger.error('Error sending png: ', e)
 
-def convert_svg_to_png(filename):
-    if filename.endswith('.png') or filename.endswith('.svg'):
-        cairosvg.svg2png(file_obj=open(filename,'rb'), write_to=filename[-3:])
 
 # Function to delete realtime graph that has been sent.
 def deleteAllFiles(folderPath):
@@ -86,10 +85,10 @@ email_message.attach(MIMEText(html, "html"))
 # Get the image path
 imagePath = "."
 
+# Attached PNG image to email
 for image in os.listdir(imagePath):
-    convert_svg_to_png(image)
     attach_file_to_email(email_message, image)
-print('Png files attached successfully')
+logger.error('Png files attached successfully')
 
 # Convert it as a string
 email_string = email_message.as_string()
