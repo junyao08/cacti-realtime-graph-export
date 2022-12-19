@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import os, shutil
 import logging
-from PIL import Image
+import Image
 
 # Create a custom logger
 logger = logging.getLogger(__name__)
@@ -34,7 +34,7 @@ html = '''
 # Function to attach files as MIMEApplication to the email
 def attach_file_to_email(email_message, filename):
     # Open the attachment file for reading in binary mode, and make it a MIMEApplication class
-    if filename.endswith('.png'):
+    if filename.endswith('.png') or filename.endswith('.svg'):
         try:
             with open(filename, "rb") as f:
                 file_attachment = MIMEApplication(f.read())
@@ -50,10 +50,10 @@ def attach_file_to_email(email_message, filename):
             logger.error('Error sending png: ', e)
 
 def convert_svg_to_png(filename):
-    if filename.endswith('.png'):
+    if filename.endswith('.png') or filename.endswith('.svg'):
         img = Image.open(filename)
         # Convert the svg to png format
-        img.save(filename[-7:], 'PNG')
+        img.save(filename[-3:], 'PNG')
 
 # Function to delete realtime graph that has been sent.
 def deleteAllFiles(folderPath):
