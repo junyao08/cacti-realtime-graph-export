@@ -99,7 +99,7 @@ server.ehlo()
 server.set_debuglevel(1)
 server.login(email_from, password)
 server.sendmail(email_from, email_to, email_string)
-server.close()
+server.quit()
 deleteAllFiles(imagePath) 
 print('Email is sent')
 
