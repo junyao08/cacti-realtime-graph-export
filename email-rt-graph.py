@@ -50,9 +50,10 @@ def attach_file_to_email(email_message, filename):
             logger.error('Error sending png: ', e)
 
 def convert_svg_to_png(filename):
-    img = Image.open(filename)
-    # Convert the svg to png format
-    img.save(filename[-7:], 'PNG')
+    if filename.endswith('.png'):
+        img = Image.open(filename)
+        # Convert the svg to png format
+        img.save(filename[-7:], 'PNG')
 
 # Function to delete realtime graph that has been sent.
 def deleteAllFiles(folderPath):
