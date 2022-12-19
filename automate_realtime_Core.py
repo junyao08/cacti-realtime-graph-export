@@ -57,18 +57,6 @@ WebDriverWait(driver, 5).until(
     EC.presence_of_all_elements_located((By.ID, 'tbranch-6_anchor'))
 )
 
-# Click on Inter-Branch
-driver.find_element(By.ID, 'tbranch-6_anchor').click()
-# Delay for login to finished
-WebDriverWait(driver, 10).until(
-    EC.presence_of_all_elements_located((By.ID, 'graph_523_realtime'))
-)
-# Realtime Graph for all graphs
-# NOTE: GRAPH WILL NOT WORK IF THE TEMPLATE ID IS CHANGED
-driver.find_element('xpath','//*[@id="graph_523_realtime"]').click()
-driver.find_element('xpath','//*[@id="graph_1281_realtime"]').click()
-
-
 #Click on Core Infrastructure
 driver.find_element(By.ID, 'tbranch-5_anchor').click()
 
