@@ -44,7 +44,7 @@ def attach_file_to_email(email_message, filename):
         try:
             img = Image.open(filename)
             img.verify()
-            logger.error('Image is ok')
+            logger.error('Image is ok: ', filename)
         except (IOError, SyntaxError) as e:
             logger.error('Bad file:', filename)
 
