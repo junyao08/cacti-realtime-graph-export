@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import os, shutil
 import logging
-import Image
+from PIL import Image
 
 # Create a custom logger
 logger = logging.getLogger(__name__)
