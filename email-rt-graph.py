@@ -4,6 +4,15 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import os, shutil
+from PIL import Image
+import logging
+
+
+logger = logging.getLogger(__name__)
+c_handler = logging.StreamHandler()
+f_handler = logging.FileHandler('email.log')
+c_handler.setLevel(logging.WARNING)
+f_handler.setLevel(logging.ERROR)
 
 # Define the HTML document
 html = '''
@@ -19,6 +28,12 @@ def attach_file_to_email(email_message, filename):
     # Open the attachment file for reading in binary mode, and make it a MIMEApplication class
     if filename.endswith('.png'):
         try:
+            img = Image.open(filename)
+            img.verify()
+        except (IOError, SyntaxError) as e:
+            logger.error('Bad file:', filename)
+
+        try:
             with open(filename, "rb") as f:
                 file_attachment = MIMEApplication(f.read())
             # Add header/name to the attachments    
@@ -30,7 +45,7 @@ def attach_file_to_email(email_message, filename):
             email_message.attach(file_attachment)
             print('File name: ', filename)
         except Exception as e:
-            print('Error sending png: ', e)
+            logger.error('Error sending png: ', e)
 
 # Function to delete realtime graph that has been sent.
 def deleteAllFiles(folderPath):
@@ -45,7 +60,7 @@ def deleteAllFiles(folderPath):
                     shutil.rmtree(file_path)
                 print('File removed: ', file)
             except Exception as e:
-                print('Failed to delete %s. Reason: %s' % (file_path, e))
+                logger.error('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
 # Set up the email addresses and password. Please replace below with your email address and password
@@ -79,12 +94,13 @@ try:
     #context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.set_debuglevel(1)
+        logger.info(server.set_debuglevel(1))
         server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string)
     deleteAllFiles(imagePath) 
     print('Email is sent')
 except Exception as e:
-    print("Sending Error:", e)
+    logger.error("Sending Error:", e)
 
 server.close()
 
