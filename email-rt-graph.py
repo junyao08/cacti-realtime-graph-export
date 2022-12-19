@@ -4,7 +4,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import os, shutil
-from PIL import Image
 import logging
 
 
@@ -12,19 +11,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 # Create handlers
-c_handler = logging.StreamHandler()
 f_handler = logging.FileHandler('file.log')
-c_handler.setLevel(logging.WARNING)
 f_handler.setLevel(logging.ERROR)
 
 # Create formatters and add it to handlers
-c_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
 f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-c_handler.setFormatter(c_format)
 f_handler.setFormatter(f_format)
 
 # Add handlers to the logger
-logger.addHandler(c_handler)
 logger.addHandler(f_handler)
 
 
@@ -41,13 +35,6 @@ html = '''
 def attach_file_to_email(email_message, filename):
     # Open the attachment file for reading in binary mode, and make it a MIMEApplication class
     if filename.endswith('.png'):
-        try:
-            img = Image.open('./'+filename)
-            img.verify()
-            logger.error('Image is ok: ', filename)
-        except (IOError, SyntaxError) as e:
-            logger.error('Bad file:', filename)
-
         try:
             with open(filename, "rb") as f:
                 file_attachment = MIMEApplication(f.read())
