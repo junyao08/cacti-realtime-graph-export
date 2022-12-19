@@ -1,13 +1,10 @@
 # Import modules
-import smtplib, ssl
+import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import os, shutil
 import logging
-import cairosvg
-from PIL import Image
-import imghdr
 
 # Create a custom logger
 logger = logging.getLogger(__name__)
@@ -102,7 +99,7 @@ try:
         server.set_debuglevel(1)
         server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string)
-    #deleteAllFiles(imagePath) 
+    deleteAllFiles(imagePath) 
     print('Email is sent')
 except Exception as e:
     logger.error("Sending Error:", e)
