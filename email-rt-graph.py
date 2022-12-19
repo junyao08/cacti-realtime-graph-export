@@ -78,6 +78,7 @@ try:
     print('Sending email...')
     #context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+        server.set_debuglevel(1)
         server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string)
     #deleteAllFiles(imagePath) 
