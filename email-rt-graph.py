@@ -95,7 +95,7 @@ print('Convert it as a string')
 try:
     print('Sending email...')
     # context = ssl.create_default_context()
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as server:
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=120) as server:
         server.ehlo()
         server.set_debuglevel(1)
         server.login(email_from, password)
