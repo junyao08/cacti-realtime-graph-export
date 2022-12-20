@@ -71,3 +71,5 @@ driver.find_element('xpath', '//*[@id="graph_508_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_507_realtime"]').click()
 time.sleep(5)
 driver.find_element('xpath', '//*[@id="graph_510_realtime"]').click()
+
+time.sleep(3000)
