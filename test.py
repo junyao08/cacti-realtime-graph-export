@@ -107,5 +107,7 @@ print('Convert it as a string')
 #     logger.error("Sending Error:", e)
 
 server = smtplib.SMTP('localhost', 25)
+server.set_debuglevel(1)
+server.login(email_from, password)
 server.send_message(email_from, email_to, email_string)
 server.quit()
