@@ -1,67 +1,111 @@
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-import time
+# Import modules
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+import os, shutil
+import logging
 
-# Cacti Credential
-username = "admin"
-password = "Monash123!!"
+# Create a custom logger
+logger = logging.getLogger(__name__)
+
+# Create handlers
+f_handler = logging.FileHandler('file.log')
+f_handler.setLevel(logging.ERROR)
+
+# Create formatters and add it to handlers
+f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+f_handler.setFormatter(f_format)
+
+# Add handlers to the logger
+logger.addHandler(f_handler)
 
 
-# Initialize the chrome driver
-driver = webdriver.Chrome()
+# Define the HTML document
+html = '''
+    <html>
+        <body>
+            <h1>Realtime Graph Report</h1>        
+        </body>
+    </html>
+    '''
 
-# Get the cacti login page
-#driver.get("https://10.158.65.227/cacti/")
-driver.get("https://localhost:7010/cacti/")
+# Function to attach files as MIMEApplication to the email
+def attach_file_to_email(email_message, filename):
+    # Open the attachment file for reading in binary mode, and make it a MIMEApplication class
+    if filename.endswith('.png') or filename.endswith('.svg'):
+        try:
+            with open(filename, "rb") as f:
+                file_attachment = MIMEApplication(f.read())
+            # Add header/name to the attachments    
+            file_attachment.add_header(
+                "Content-Disposition",
+                f"attachment; filename= {filename}",
+            )
+            # Attach the file to the message
+            email_message.attach(file_attachment)
+            print('File name: ', filename)
+        except Exception as e:
+            logger.error('Error sending png: ', e)
 
-driver.find_element('xpath', '//*[@id="details-button"]').click()
-driver.find_element('xpath', '//*[@id="proceed-link"]').click()
 
-# Get the cacti username and password html tag ID and populate username and password
-driver.find_element(By.ID, 'login_username').send_keys(username)
-driver.find_element(By.ID, 'login_password').send_keys(password)
+# Function to delete realtime graph that has been sent.
+def deleteAllFiles(folderPath):
+    for file in os.listdir(folderPath):
+        # Grab only png files
+        if file.endswith(".rrd") or file.endswith(".png"):
+            file_path = os.path.join(folderPath, file)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+                print('File removed: ', file)
+            except Exception as e:
+                logger.error('Failed to delete %s. Reason: %s' % (file_path, e))
 
-# Get login button
-driver.find_element("xpath", '//*[@id="login"]/div[2]/table/tbody/tr[4]/td/input').click()
 
-# Delay for login to finished
-WebDriverWait(driver, 3).until(
-    EC.presence_of_all_elements_located((By.ID, 'tab-graphs'))
-)
+# Set up the email addresses and password. Please replace below with your email address and password
+email_from = 'eugenewong@idgs.my'
+password = 'gqqnimxdpusfedzo'
+email_to = 'eugenewong@idgs.my'
 
-# Open Graph page
-driver.find_element('xpath', '//*[@id="tab-graphs"]').click()
+# Create a MIMEMultipart class, and set up the From, To, Subject fields
+email_message = MIMEMultipart()
+email_message['From'] = email_from
+email_message['To'] = email_to
+email_message['Subject'] = f'Netmon - Realtime Graph'
 
-# Select Tree
-driver.find_element(By.ID, 'treeview').click()
+# Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
+email_message.attach(MIMEText(html, "html"))
 
-# # Delay for login to finished
-# WebDriverWait(driver, 120).until(
-#     EC.presence_of_all_elements_located(('xpath', '//*[@id="tree_anchor-1_anchor"]'))
-# )
+# Get the image path
+imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
 
-time.sleep(20)
+# Attached PNG image to email
+for image in os.listdir(imagePath):
+    attach_file_to_email(email_message, image)
+logger.error('Png files attached successfully')
 
-if driver.find_element('xpath', '//*[@id="tree_anchor-1"]').get_attribute('class') == 'jstree-node  jstree-closed jstree-last':
-    # Click dropdown to display all branches 
-    driver.find_element('xpath', '//*[@id="tree_anchor-1"]/i').click()
+# Convert it as a string
+email_string = email_message.as_string()
+print('Convert it as a string')
 
-# Delay for login to finished
-WebDriverWait(driver, 5).until(
-    EC.presence_of_all_elements_located((By.ID, 'tbranch-6_anchor'))
-)
+# Connect to the Gmail SMTP server and Send Email
+# try:
+#     print('Sending email...')
+#     # context = ssl.create_default_context()
+#     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+#         server.ehlo()
+#         server.set_debuglevel(1)
+#         server.login(email_from, password)
+#         server.sendmail(email_from, email_to, email_string)
+#         server.close()
+#     deleteAllFiles(imagePath) 
+#     print('Email is sent')
+# except Exception as e:
+#     logger.error("Sending Error:", e)
 
-# Click on Inter-Branch
-driver.find_element(By.ID, 'tbranch-6_anchor').click()
-
-time.sleep(10)
-
-# Realtime Graph for all graphs
-# NOTE: GRAPH WILL NOT WORK IF THE TEMPLATE ID IS CHANGED
-driver.find_element('xpath','//*[@id="graph_523_realtime"]').click()
-driver.find_element('xpath','//*[@id="graph_1281_realtime"]').click()
-
-time.sleep(3000)
+server = smtplib.SMTP('localhost', 25)
+server.send_message(email_from, email_to, email_string)
+server.quit()
