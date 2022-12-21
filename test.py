@@ -44,7 +44,7 @@ def attach_file_to_email(email_message, filename):
             )
             # Attach the file to the message
             email_message.attach(file_attachment)
-            print('File name: ', filename)
+            logger.error('File name: ', filename)
         except Exception as e:
             logger.error('Error sending png: ', e)
 
@@ -106,8 +106,11 @@ print('Convert it as a string')
 # except Exception as e:
 #     logger.error("Sending Error:", e)
 
-server = smtplib.SMTP('localhost', 25)
-server.set_debuglevel(1)
-server.login(email_from, password)
-server.send_message(email_from, email_to, email_string)
-server.quit()
+try:
+    server = smtplib.SMTP('localhost', 465)
+    server.set_debuglevel(1)
+    server.login(email_from, password)
+    server.send_message(email_from, email_to, email_string)
+    server.quit()
+except Exception as e:
+    logger.error("Email error: ", e)
