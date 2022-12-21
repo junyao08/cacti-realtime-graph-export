@@ -113,4 +113,4 @@ try:
     server.send_message(email_from, email_to, email_string)
     server.quit()
 except Exception as e:
-    logger.error("Email error: ", e)
+    logger.error("Email errors: ", e)
