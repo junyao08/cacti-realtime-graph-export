@@ -47,14 +47,17 @@ def attach_file_to_email(email_message, filename):
 # Function to delete realtime graph that has been sent.
 def deleteAllFiles(folderPath):
     for file in os.listdir(folderPath):
-        # Delete rrd and png files
+        # Grab only png files
         if file.endswith(".rrd") or file.endswith(".png"):
+            file_path = os.path.join(folderPath, file)
             try:
-                if os.path.isfile(file):
-                    os.unlink(file)    
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
                 logger.error('File removed: ', file)
             except Exception as e:
-                logger.error('Failed to delete %s. Reason: %s' % (file, e))
+                logger.error('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
 # Set up the email addresses and password. Please replace below with your email address and password
@@ -78,36 +81,8 @@ email_message['Subject'] = f'Netmon - Realtime Graph'
 email_message.attach(MIMEText(html, "html"))
 
 # Get the image path
-imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
-
-# for image in os.listdir(imagePath):
-#     if image.endswith('514.png'):
-#         new_filename = 'musc-cx2-sw1 - TIME 500M DIA.png'
-#         os.rename(image, new_filename)
-#     elif image.endswith('512.png'):
-#         new_filename = 'musc-aims-sw1 - MAXIS 500M DIA'
-#         os.rename(image, new_filename)
-#     elif image.endswith('515.png'):
-#         new_filename = 'musc-cx2-sw1 - MYIX 1G CX2'
-#         os.rename(image, new_filename)
-#     elif image.endswith('513.png'):
-#         new_filename = 'musc-aims-sw1 - MYIX 1G AIMS'
-#         os.rename(image, new_filename)
-#     elif image.endswith('508.png'):
-#         new_filename = 'musc-9-5-gw1 MYREN 300M PLL'
-#         os.rename(image, new_filename)
-#     elif image.endswith('507.png'):
-#         new_filename = 'musc-9-5-gw1 - 1G PLL to CX2'
-#         os.rename(image, new_filename)
-#     elif image.endswith('510.png'):
-#         new_filename = 'musc-2-0-gw1 - 1G PLL to AIMS'
-#         os.rename(image, new_filename)
-#     elif image.endswith('523.png'):
-#         new_filename = 'musc-vss-core - CSJB 300M PLL'
-#         os.rename(image, new_filename)
-#     elif image.endswith('1281.png'):
-#         new_filename = 'musc-9-5-bds1 - SMP 100M PLL'
-#         os.rename(image, new_filename)
+#imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
+imagePath = '.'
 
 # Attached PNG image to email
 for image in os.listdir(imagePath):
