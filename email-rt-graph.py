@@ -74,8 +74,8 @@ email_message = MIMEMultipart()
 email_message['From'] = email_from
 email_message['To'] = email_to
 email_message['Subject'] = f'Netmon - Realtime Graph'
-email_message['Cc'] = cc
-email_message['Bcc'] = ', '.join(bcc)
+#email_message['Cc'] = cc
+#email_message['Bcc'] = ', '.join(bcc)
 
 # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
 email_message.attach(MIMEText(html, "html"))
@@ -83,6 +83,35 @@ email_message.attach(MIMEText(html, "html"))
 # Get the image path
 #imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
 imagePath = '.'
+
+for image in os.listdir('.'):
+    if image.endswith('514.png'):
+        new_filename = 'musc-cx2-sw1 - TIME 500M DIA'
+        os.rename(image, new_filename)
+    elif image.endswith('512.png'):
+        new_filename = 'musc-aims-sw1 - MAXIS 500M DIA'
+        os.rename(image, new_filename)
+    elif image.endswith('515.png'):
+        new_filename = 'musc-cx2-sw1 - MYIX 1G CX2'
+        os.rename(image, new_filename)
+    elif image.endswith('513.png'):
+        new_filename = 'musc-aims-sw1 - MYIX 1G AIMS'
+        os.rename(image, new_filename)
+    elif image.endswith('508.png'):
+        new_filename = 'musc-9-5-gw1 MYREN 300M PLL'
+        os.rename(image, new_filename)
+    elif image.endswith('507.png'):
+        new_filename = 'musc-9-5-gw1 - 1G PLL to CX2'
+        os.rename(image, new_filename)
+    elif image.endswith('510.png'):
+        new_filename = 'musc-2-0-gw1 - 1G PLL to AIMS'
+        os.rename(image, new_filename)
+    elif image.endswith('523.png'):
+        new_filename = 'musc-vss-core - CSJB 300M PLL'
+        os.rename(image, new_filename)
+    elif image.endswith('1281.png'):
+        new_filename = 'musc-9-5-bds1 - SMP 100M PLL'
+        os.rename(image, new_filename)
 
 # Attached PNG image to email
 for image in os.listdir(imagePath):
@@ -103,7 +132,7 @@ try:
         server.set_debuglevel(1)
         server.sendmail(email_from, email_to, email_string)
         server.close()
-    #deleteAllFiles(imagePath) 
+    deleteAllFiles(imagePath) 
     logger.error('Email is sent')
 except Exception as e:
     logger.error("Sending Error:", e)
