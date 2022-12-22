@@ -105,7 +105,7 @@ logger.error('Convert it as a string')
 
 # Connect to the Gmail SMTP server and Send Email
 try:
-    logger.error('Connect to GmailSending email...')
+    logger.error('Sending email...')
     # context = ssl.create_default_context()
     with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.starttls()
