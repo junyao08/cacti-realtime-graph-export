@@ -2,7 +2,8 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.application import MIMEApplication
+#from email.mime.application import MIMEApplication
+from email.mime.image import MIMEImage
 import os, shutil
 import logging
 
@@ -36,14 +37,18 @@ def attach_file_to_email(email_message, filename):
     if filename.endswith('.png') or filename.endswith('.svg'):
         try:
             with open(filename, "rb") as f:
-                file_attachment = MIMEApplication(f.read())
-            # Add header/name to the attachments    
-            file_attachment.add_header(
-                "Content-Disposition",
-                f"attachment; filename= {filename}",
-            )
+                img = MIMEImage(f.read())
+                email_message.attach(img)
+            #     file_attachment = MIMEApplication(f.read())
+            # # Add header/name to the attachments    
+            # file_attachment.add_header(
+            #     "Content-Disposition",
+            #     f"attachment; filename= {filename}",
+            # )            
+
             # Attach the file to the message
-            email_message.attach(file_attachment)
+            #email_message.attach(file_attachment)
+
             logger.error('File attached: ', filename)
         except Exception as e:
             logger.error('Error sending png: ', e)
