@@ -36,12 +36,10 @@ def attach_file_to_email(email_message, filename):
     # Open the attachment file for reading in binary mode, and make it a MIMEApplication class
     if filename.endswith('.png') or filename.endswith('.svg'):
         try:
-            new_filename = filename[-7:]
-            os.rename(filename, new_filename)
-            with open(new_filename, "rb") as f:
+            with open(filename, "rb") as f:
                 img = MIMEImage(f.read())
                 email_message.attach(img)
-            logger.error('File attached: ', new_filename)
+            logger.error('File attached: ', filename)
         except Exception as e:
             logger.error('Error sending png: ', e)
 
