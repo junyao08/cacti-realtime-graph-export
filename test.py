@@ -67,7 +67,6 @@ def deleteAllFiles(folderPath):
 
 # Set up the email addresses and password. Please replace below with your email address and password
 email_from = 'eugenewong@idgs.my'
-password = 'gqqnimxdpusfedzo'
 email_to = 'eugenewong@idgs.my'
 
 # Create a MIMEMultipart class, and set up the From, To, Subject fields
@@ -107,10 +106,8 @@ print('Convert it as a string')
 #     logger.error("Sending Error:", e)
 
 try:
-    server = smtplib.SMTP('localhost', 465)
-    server.set_debuglevel(1)
-    server.login(email_from, password)
-    server.send_message(email_from, email_to, email_string)
-    server.quit()
+    with smtplib.SMTP('localhost', 25) as server:
+        server.set_debuglevel(1)
+        server.send_message(email_from, email_to, email_string)
 except Exception as e:
     logger.error("Email errors: ", e)

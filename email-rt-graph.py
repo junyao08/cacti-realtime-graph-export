@@ -68,13 +68,17 @@ def deleteAllFiles(folderPath):
 # Set up the email addresses and password. Please replace below with your email address and password
 email_from = 'eugenewong@idgs.my'
 password = 'gqqnimxdpusfedzo'
-email_to = 'eugenewong@idgs.my'
+email_to = 'lim.teckyee@monash.edu'
+cc = 'james.chia@monash.edu'
+bcc = ['tohseng@idgs.my', 'eugenewong@idgs.my']
 
 # Create a MIMEMultipart class, and set up the From, To, Subject fields
 email_message = MIMEMultipart()
 email_message['From'] = email_from
 email_message['To'] = email_to
 email_message['Subject'] = f'Netmon - Realtime Graph'
+email_message['Cc'] = cc
+email_message['Bcc'] = ', '.join(bcc)
 
 # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
 email_message.attach(MIMEText(html, "html"))
