@@ -65,7 +65,7 @@ def deleteAllFiles(folderPath):
 # Set up the email addresses and password. Please replace below with your email address and password
 email_from = 'netmon.monash.edu.my@netmon.monash.edu.my'
 email_to = 'eugenewong@idgs.my'
-#cc = 'james.chia@monash.edu'
+cc = 'james.chia@monash.edu'
 #bcc = ['tohseng@idgs.my', 'eugenewong@idgs.my']
 
 smtp_server = 'localhost'
