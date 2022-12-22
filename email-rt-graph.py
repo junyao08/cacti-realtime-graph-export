@@ -39,7 +39,6 @@ def attach_file_to_email(email_message, filename):
             with open(filename, "rb") as f:
                 img = MIMEImage(f.read())
                 email_message.attach(img)
-            logger.error('File attached: ', filename)
         except Exception as e:
             logger.error('Error sending png: ', e)
 
@@ -74,8 +73,8 @@ email_message = MIMEMultipart()
 email_message['From'] = email_from
 email_message['To'] = email_to
 email_message['Subject'] = f'Netmon - Realtime Graph'
-#email_message['Cc'] = cc
-#email_message['Bcc'] = ', '.join(bcc)
+email_message['Cc'] = ', '.join(cc)
+email_message['Bcc'] = ', '.join(bcc)
 
 # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
 email_message.attach(MIMEText(html, "html"))
