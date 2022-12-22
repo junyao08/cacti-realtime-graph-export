@@ -67,27 +67,24 @@ def deleteAllFiles(folderPath):
 
 # Set up the email addresses and password. Please replace below with your email address and password
 email_from = 'eugenewong@idgs.my'
-email_to = 'eugenewong@idgs.my'
-#cc = 'james.chia@monash.edu'
-#bcc = ['tohseng@idgs.my', 'eugenewong@idgs.my']
-
-smtp_server = 'localhost'
-smtp_port = 25
+password = 'gqqnimxdpusfedzo'
+email_to = 'lim.teckyee@monash.edu'
+cc = 'james.chia@monash.edu'
+bcc = ['tohseng@idgs.my', 'eugenewong@idgs.my']
 
 # Create a MIMEMultipart class, and set up the From, To, Subject fields
 email_message = MIMEMultipart()
 email_message['From'] = email_from
 email_message['To'] = email_to
 email_message['Subject'] = f'Netmon - Realtime Graph'
-#email_message['Cc'] = cc
-#email_message['Bcc'] = ', '.join(bcc)
+email_message['Cc'] = cc
+email_message['Bcc'] = ', '.join(bcc)
 
 # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
 email_message.attach(MIMEText(html, "html"))
 
 # Get the image path
-#imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
-imagePath = '.'
+imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
 
 # Attached PNG image to email
 for image in os.listdir(imagePath):
@@ -102,14 +99,18 @@ print('Convert it as a string')
 try:
     print('Sending email...')
     # context = ssl.create_default_context()
-    with smtplib.SMTP_SSL(smtp_server, smtp_port) as server:
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.ehlo()
         server.set_debuglevel(1)
+        server.login(email_from, password)
         server.sendmail(email_from, email_to, email_string)
         server.close()
     deleteAllFiles(imagePath) 
     print('Email is sent')
 except Exception as e:
     logger.error("Sending Error:", e)
+
+
+
 
 
