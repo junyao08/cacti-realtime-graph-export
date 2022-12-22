@@ -84,35 +84,6 @@ email_message.attach(MIMEText(html, "html"))
 #imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
 imagePath = '.'
 
-for image in os.listdir(imagePath):
-    if image.endswith('514.png'):
-        new_filename = 'musc-cx2-sw1 - TIME 500M DIA'
-        os.rename(image, new_filename)
-    elif image.endswith('512.png'):
-        new_filename = 'musc-aims-sw1 - MAXIS 500M DIA'
-        os.rename(image, new_filename)
-    elif image.endswith('515.png'):
-        new_filename = 'musc-cx2-sw1 - MYIX 1G CX2'
-        os.rename(image, new_filename)
-    elif image.endswith('513.png'):
-        new_filename = 'musc-aims-sw1 - MYIX 1G AIMS'
-        os.rename(image, new_filename)
-    elif image.endswith('508.png'):
-        new_filename = 'musc-9-5-gw1 MYREN 300M PLL'
-        os.rename(image, new_filename)
-    elif image.endswith('507.png'):
-        new_filename = 'musc-9-5-gw1 - 1G PLL to CX2'
-        os.rename(image, new_filename)
-    elif image.endswith('510.png'):
-        new_filename = 'musc-2-0-gw1 - 1G PLL to AIMS'
-        os.rename(image, new_filename)
-    elif image.endswith('523.png'):
-        new_filename = 'musc-vss-core - CSJB 300M PLL'
-        os.rename(image, new_filename)
-    elif image.endswith('1281.png'):
-        new_filename = 'musc-9-5-bds1 - SMP 100M PLL'
-        os.rename(image, new_filename)
-
 # Attached PNG image to email
 for image in os.listdir(imagePath):
     attach_file_to_email(email_message, image)
