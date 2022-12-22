@@ -72,7 +72,7 @@ email_to = 'eugenewong@etech.com.my'
 #bcc = ['tohseng@idgs.my', 'eugenewong@idgs.my']
 
 smtp_server = 'localhost'
-smtp_port = 25
+smtp_port = 587
 
 # Create a MIMEMultipart class, and set up the From, To, Subject fields
 email_message = MIMEMultipart()
@@ -103,6 +103,7 @@ try:
     logger.error('Connect to GmailSending email...')
     # context = ssl.create_default_context()
     with smtplib.SMTP(smtp_server, smtp_port) as server:
+        server.starttls()
         server.ehlo()
         server.set_debuglevel(1)
         server.sendmail(email_from, email_to, email_string)
