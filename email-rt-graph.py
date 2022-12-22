@@ -44,7 +44,7 @@ def attach_file_to_email(email_message, filename):
             )
             # Attach the file to the message
             email_message.attach(file_attachment)
-            print('File name: ', filename)
+            logger.error('File attached: ', filename)
         except Exception as e:
             logger.error('Error sending png: ', e)
 
@@ -60,7 +60,7 @@ def deleteAllFiles(folderPath):
                     os.unlink(file_path)
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
-                print('File removed: ', file)
+                logger.error('File removed: ', file)
             except Exception as e:
                 logger.error('Failed to delete %s. Reason: %s' % (file_path, e))
 
@@ -96,11 +96,11 @@ logger.error('Png files attached successfully')
 
 # Convert it as a string
 email_string = email_message.as_string()
-print('Convert it as a string')
+logger.error('Convert it as a string')
 
 # Connect to the Gmail SMTP server and Send Email
 try:
-    print('Sending email...')
+    logger.error('Connect to GmailSending email...')
     # context = ssl.create_default_context()
     with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.ehlo()
@@ -108,7 +108,7 @@ try:
         server.sendmail(email_from, email_to, email_string)
         server.close()
     #deleteAllFiles(imagePath) 
-    print('Email is sent')
+    logger.error('Email is sent')
 except Exception as e:
     logger.error("Sending Error:", e)
 
