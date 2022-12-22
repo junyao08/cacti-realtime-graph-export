@@ -4,7 +4,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 #from email.mime.application import MIMEApplication
 from email.mime.image import MIMEImage
-import os, shutil
+import os
 import logging
 
 # Create a custom logger
@@ -41,23 +41,6 @@ def attach_file_to_email(email_message, filename):
                 email_message.attach(img)
         except Exception as e:
             logger.error('Error sending png: ', e)
-
-
-# Function to delete realtime graph that has been sent.
-def deleteAllFiles(folderPath):
-    for file in os.listdir(folderPath):
-        # Grab only png files
-        if file.endswith(".rrd") or file.endswith(".png"):
-            file_path = os.path.join(folderPath, file)
-            try:
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-                logger.error('File removed: ', file)
-            except Exception as e:
-                logger.error('Failed to delete %s. Reason: %s' % (file_path, e))
-
 
 # Set up the email addresses and password. Please replace below with your email address and password
 email_from = 'netmon.monash.edu.my@netmon.monash.edu.my'
@@ -102,7 +85,6 @@ try:
         server.set_debuglevel(1)
         server.sendmail(email_from, email_to, email_string)
         server.close()
-    #deleteAllFiles(imagePath) 
     logger.error('Email is sent')
 except Exception as e:
     logger.error("Sending Error:", e)
