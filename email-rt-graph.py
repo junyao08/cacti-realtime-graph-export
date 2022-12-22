@@ -78,8 +78,7 @@ email_message['Subject'] = f'Netmon - Realtime Graph'
 email_message.attach(MIMEText(html, "html"))
 
 # Get the image path
-#imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
-imagePath = '.'
+imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
 
 for image in os.listdir(imagePath):
     if image.endswith('514.png'):
