@@ -128,7 +128,7 @@ try:
         server.set_debuglevel(1)
         server.sendmail(email_from, email_to, email_string)
         server.close()
-    deleteAllFiles(imagePath) 
+    #deleteAllFiles(imagePath) 
     logger.error('Email is sent')
 except Exception as e:
     logger.error("Sending Error:", e)
