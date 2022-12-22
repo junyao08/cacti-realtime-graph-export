@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+import os
 
 # Cacti Credential
 username = "admin"
@@ -66,5 +67,13 @@ time.sleep(10)
 # NOTE: GRAPH WILL NOT WORK IF THE TEMPLATE ID IS CHANGED
 driver.find_element('xpath','//*[@id="graph_523_realtime"]').click()
 driver.find_element('xpath','//*[@id="graph_1281_realtime"]').click()
+
+for image in os.listdir('.'):
+    if image.endswith('523.png'):
+        new_filename = 'musc-vss-core - CSJB 300M PLL'
+        os.rename(image, new_filename)
+    elif image.endswith('1281.png'):
+        new_filename = 'musc-9-5-bds1 - SMP 100M PLL'
+        os.rename(image, new_filename)
 
 time.sleep(3000)

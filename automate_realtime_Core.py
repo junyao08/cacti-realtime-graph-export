@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+import os
 
 # Cacti Credential
 username = "admin"
@@ -70,5 +71,30 @@ driver.find_element('xpath', '//*[@id="graph_513_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_508_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_507_realtime"]').click()
 driver.find_element('xpath', '//*[@id="graph_510_realtime"]').click()
+
+
+for image in os.listdir('.'):
+    if image.endswith('514.png'):
+        new_filename = 'musc-cx2-sw1 - TIME 500M DIA'
+        os.rename(image, new_filename)
+    elif image.endswith('512.png'):
+        new_filename = 'musc-aims-sw1 - MAXIS 500M DIA'
+        os.rename(image, new_filename)
+    elif image.endswith('515.png'):
+        new_filename = 'musc-cx2-sw1 - MYIX 1G CX2'
+        os.rename(image, new_filename)
+    elif image.endswith('513.png'):
+        new_filename = 'musc-aims-sw1 - MYIX 1G AIMS'
+        os.rename(image, new_filename)
+    elif image.endswith('508.png'):
+        new_filename = 'musc-9-5-gw1 MYREN 300M PLL'
+        os.rename(image, new_filename)
+    elif image.endswith('507.png'):
+        new_filename = 'musc-9-5-gw1 - 1G PLL to CX2'
+        os.rename(image, new_filename)
+    elif image.endswith('510.png'):
+        new_filename = 'musc-2-0-gw1 - 1G PLL to AIMS'
+        os.rename(image, new_filename)
+
 
 time.sleep(3000)
