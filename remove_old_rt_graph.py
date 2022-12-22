@@ -30,3 +30,7 @@ def deleteAllFiles(folderPath):
                 logger.error('File removed: ', file)
             except Exception as e:
                 logger.error('Failed to delete %s. Reason: %s' % (file_path, e))
+
+
+imagePath = '.'
+deleteAllFiles(imagePath)
