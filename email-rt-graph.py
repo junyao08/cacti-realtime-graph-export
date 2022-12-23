@@ -7,20 +7,20 @@ from email.mime.image import MIMEImage
 import os
 import logging
 
-# Create a custom logger
-logger = logging.getLogger(__name__)
+# Create a logger
+logger = logging.getLogger('my_logger')
+logger.setLevel(logging.DEBUG)
 
-# Create handlers
-f_handler = logging.FileHandler('file.log')
-f_handler.setLevel(logging.ERROR)
+# Create a file handler
+handler = logging.FileHandler('log.txt')
+handler.setLevel(logging.DEBUG)
 
-# Create formatters and add it to handlers
-f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-f_handler.setFormatter(f_format)
+# Create a logging format
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
 
-# Add handlers to the logger
-logger.addHandler(f_handler)
-
+# Add the handler to the logger
+logger.addHandler(handler)
 
 # Define the HTML document
 html = '''
@@ -39,6 +39,7 @@ def attach_file_to_email(email_message, filename):
             with open(filename, "rb") as f:
                 img = MIMEImage(f.read())
                 email_message.attach(img)
+                logger.debug("File attached: " + filename)
         except Exception as e:
             logger.error('Error sending png: ', e)
 
@@ -69,11 +70,11 @@ imagePath = '.'
 # Attached PNG image to email
 for image in os.listdir(imagePath):
     attach_file_to_email(email_message, image)
-logger.error('Png files attached successfully')
+logger.debug('Png files attached successfully')
 
 # Convert it as a string
 email_string = email_message.as_string()
-logger.error('Convert it as a string')
+logger.debug('Convert it as a string')
 
 # Connect to the Gmail SMTP server and Send Email
 try:
@@ -85,7 +86,7 @@ try:
         server.set_debuglevel(1)
         server.sendmail(email_from, email_to, email_string)
         server.close()
-    logger.error('Email is sent')
+    logger.debug('Email is sent')
 except Exception as e:
     logger.error("Sending Error:", e)
 
