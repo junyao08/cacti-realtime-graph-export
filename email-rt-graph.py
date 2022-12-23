@@ -98,7 +98,6 @@ try:
     # context = ssl.create_default_context()
     with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.starttls()
-        server.ehlo()
         server.set_debuglevel(1)
         logger.debug('Sending the email')
         start_time = time.time()
