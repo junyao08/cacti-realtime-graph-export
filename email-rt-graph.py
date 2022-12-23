@@ -4,7 +4,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 #from email.mime.application import MIMEApplication
 from email.mime.image import MIMEImage
-import os
+import os, shutil
 import logging
 
 # Create a logger
@@ -30,6 +30,20 @@ html = '''
         </body>
     </html>
     '''
+
+# Function to delete realtime graph that has been sent.
+def deleteAllFiles(folderPath):
+    for file in os.listdir(folderPath):
+        # Grab only png files
+        if file.endswith(".rrd") or file.endswith(".png"):
+            file_path = os.path.join(folderPath, file)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print("Error while deleting files")
 
 # Function to attach files as MIMEApplication to the email
 def attach_file_to_email(email_message, filename):
@@ -87,6 +101,7 @@ try:
         server.sendmail(email_from, email_to, email_string)
         server.close()
     logger.debug('Email is sent')
+    deleteAllFiles(imagePath)
 except Exception as e:
     logger.error("Sending Error:", e)
 
