@@ -81,7 +81,7 @@ email_message.attach(MIMEText(html, "html"))
 
 # Get the image path
 #imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
-imagePath = '.'
+imagePath = os.path.dirname(os.path.realpath(__file__))
 
 # Attached PNG image to email
 for image in os.listdir(imagePath):
