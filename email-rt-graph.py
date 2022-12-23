@@ -6,6 +6,7 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 import os, shutil
 import logging
+import time
 
 # Create a logger
 logger = logging.getLogger('my_logger')
@@ -92,15 +93,20 @@ logger.debug('Convert it as a string')
 
 # Connect to the Gmail SMTP server and Send Email
 try:
-    logger.error('Sending email...')
+    logger.debug('Connecting to the SMTP server')
     # context = ssl.create_default_context()
     with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.starttls()
         server.ehlo()
         server.set_debuglevel(1)
+        logger.debug('Sending the email')
+        start_time = time.time()
         server.sendmail(email_from, email_to, email_string)
+        end_time = time.time()
+        logger.debug(f'Email sent in {end_time - start_time:.2f} seconds')
         server.close()
-    logger.debug('Email is sent')
+        logger.debug('Disconnecting from the SMTP server')
+        server.quit()
     deleteAllFiles(imagePath)
 except Exception as e:
     logger.error("Sending Error:", e)
