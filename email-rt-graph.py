@@ -61,13 +61,14 @@ def attach_file_to_email(email_message, filename):
 # Set up the email addresses and password. Please replace below with your email address and password
 email_from = 'netmon.monash.edu.my@netmon.monash.edu.my'
 email_to = 'eugenewong@idgs.my'
-cc = ['james.chia@monash.edu', 'tinesh.ragindran@monash.edu', 'lim.teckyee@monash.edu']
+cc = ['james.chia@monash.edu', 'tinesh.ragindran@monash.edu', 'lim.teckyee@monash.edu', 'tohseng@idgs.my']
 bcc = ['tohseng@idgs.my', 'eugenewong@idgs.my']
 
 smtp_server = 'localhost'
 smtp_port = 587
 
 # Create a MIMEMultipart class, and set up the From, To, Subject fields
+logger.debug('Creating the email message')
 email_message = MIMEMultipart()
 email_message['From'] = email_from
 email_message['To'] = email_to
