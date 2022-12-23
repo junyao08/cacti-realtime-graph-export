@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 import time
 import os
 
+# Stop while email are sending and deleting the old files
 time.sleep(40)
 
 # Cacti Credential
