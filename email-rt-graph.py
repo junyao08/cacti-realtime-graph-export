@@ -109,6 +109,7 @@ try:
         logger.debug('Disconnecting from the SMTP server')
         server.quit()
     deleteAllFiles(imagePath)
+    logger.debug('PNG deleted')
 except Exception as e:
     logger.error("Sending Error:", e)
 
