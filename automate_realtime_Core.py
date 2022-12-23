@@ -6,6 +6,8 @@ from selenium.webdriver.common.by import By
 import time
 import os
 
+time.sleep(40)
+
 # Cacti Credential
 username = "admin"
 password = "Monash123!!"
