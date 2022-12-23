@@ -43,7 +43,7 @@ def deleteAllFiles(folderPath):
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
             except Exception as e:
-                print("Error while deleting files")
+                logger.error("Error while deleting files")
 
 # Function to attach files as MIMEApplication to the email
 def attach_file_to_email(email_message, filename):
