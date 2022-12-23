@@ -68,4 +68,4 @@ time.sleep(10)
 driver.find_element('xpath','//*[@id="graph_523_realtime"]').click()
 driver.find_element('xpath','//*[@id="graph_1281_realtime"]').click()
 
-time.sleep(3300)
+time.sleep(3000)
