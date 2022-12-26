@@ -26,6 +26,7 @@ logger.addHandler(handler)
 abspath = os.path.abspath(os.path.dirname(__file__))
 dname = os.path.dirname(abspath)
 os.chdir(dname)
+logger.debug(dname)
 
 # Define the HTML document
 html = '''
@@ -84,12 +85,13 @@ email_message['Bcc'] = ', '.join(bcc)
 email_message.attach(MIMEText(html, "html"))
 
 # Get the image path
-#imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
-imagePath = os.path.abspath("/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/")
+imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
+#imagePath = os.path.abspath("/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/")
 
 # Attached PNG image to email
 for image in os.listdir(imagePath):
-    attach_file_to_email(email_message, image)
+    image_path = os.path.join(imagePath, image)
+    attach_file_to_email(email_message, image_path)
 logger.debug('Png files attached successfully')
 
 # Convert it as a string
