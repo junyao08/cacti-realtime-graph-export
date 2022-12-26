@@ -49,7 +49,7 @@ def deleteAllFiles(folderPath):
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
             except Exception as e:
-                logger.error("Error while deleting files")
+                logger.error("Error while deleting files: ", str(e))
 
 # Function to attach files as MIMEApplication to the email
 def attach_file_to_email(email_message, filename):
@@ -61,7 +61,7 @@ def attach_file_to_email(email_message, filename):
                 email_message.attach(img)
                 logger.debug("File attached: " + filename)
         except Exception as e:
-            logger.error('Error sending png: ', e)
+            logger.error('Error sending png: ', str(e))
 
 # Set up the email addresses and password. Please replace below with your email address and password
 email_from = 'netmon.monash.edu.my@netmon.monash.edu.my'
@@ -116,6 +116,6 @@ try:
     deleteAllFiles(imagePath)
     logger.debug('PNG deleted')
 except Exception as e:
-    logger.error("Sending Error:", e)
+    logger.error("Sending Error:", str(e))
 
 
