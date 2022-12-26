@@ -112,7 +112,6 @@ try:
         logger.debug(f'Email sent in {end_time - start_time:.2f} seconds')
         server.close()
         logger.debug('Disconnecting from the SMTP server')
-        server.quit()
     deleteAllFiles(imagePath)
     logger.debug('PNG deleted')
 except Exception as e:
