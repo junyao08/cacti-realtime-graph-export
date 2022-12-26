@@ -23,6 +23,10 @@ handler.setFormatter(formatter)
 # Add the handler to the logger
 logger.addHandler(handler)
 
+abspath = os.path.abspath(os.path.dirname(__file__))
+dname = os.path.dirname(abspath)
+os.chdir(dname)
+
 # Define the HTML document
 html = '''
     <html>
