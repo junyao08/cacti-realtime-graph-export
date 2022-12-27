@@ -88,8 +88,8 @@ def attach_file_to_email(email_message, filename, attachment_name):
 
 # Set up the email addresses and password. Please replace below with your email address and password
 email_from = 'netmon.monash.edu.my@netmon.monash.edu.my'
-#email_to = 'tinesh.ragindran@monash.edu, lim.teckyee@monash.edu, james.chia@monash.edu, tohseng@idgs.my, eugenewong@idgs.my'
-email_to = 'eugenewong@idgs.my'
+email_to = 'tinesh.ragindran@monash.edu, lim.teckyee@monash.edu, james.chia@monash.edu, tohseng@idgs.my, eugenewong@idgs.my'
+#email_to = 'eugenewong@idgs.my'
 
 smtp_server = 'localhost'
 smtp_port = 587
