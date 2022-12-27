@@ -138,5 +138,5 @@ try:
 except Exception as e:
     logger.error("Sending Error:", str(e))
 
-#deleteAllFiles(imagePath)
-#logger.debug('PNG deleted')
+deleteAllFiles(imagePath)
+logger.debug('PNG deleted')
