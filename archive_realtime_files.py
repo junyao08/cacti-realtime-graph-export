@@ -31,9 +31,12 @@ def zip_rename_file(imageDir):
     # calling function to get all file paths in the directory
     file_paths = get_all_graphs(directory)
   
-    date_time = str(datetime.datetime.now())
+    now = datetime.datetime.now()
+    timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
+    zip_filename = '{}.zip'.format(timestamp)
+
     # writing files to a zipfile
-    with ZipFile(date_time + '.zip','w') as zip:
+    with ZipFile(zip_filename,'w') as zip:
         # writing each file one by one
         for file in file_paths:
             zip.write(file)
