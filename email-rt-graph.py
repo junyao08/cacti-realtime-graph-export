@@ -74,13 +74,13 @@ def rename_graph_name(folderpath, filename):
             os.rename(image_path, folderpath + 'musc-9-5-bds1-smp-100m-pll.png')
 
 # Function to attach files as MIMEApplication to the email
-def attach_file_to_email(email_message, filename):
+def attach_file_to_email(email_message, filename, attachment_name):
     # Open the attachment file for reading in binary mode, and make it a MIMEApplication class
     if filename.endswith('.png') or filename.endswith('.svg'):
         try:
             with open(filename, "rb") as f:
                 img = MIMEImage(f.read())
-                img.add_header('Content-Disposition', 'attachment', filename=filename)
+                img.add_header('Content-Disposition', 'attachment', filename=attachment_name)
                 email_message.attach(img)
                 logger.debug("File attached: " + filename)
         except Exception as e:
@@ -114,7 +114,7 @@ logger.debug("All files renamed")
 # Attached PNG image to email
 for image in os.listdir(imagePath):
     image_path = os.path.join(imagePath, image)
-    attach_file_to_email(email_message, image_path)
+    attach_file_to_email(email_message, image_path, image)
 logger.debug('Png files attached successfully')
 
 # Convert it as a string
