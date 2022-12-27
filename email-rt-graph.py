@@ -51,26 +51,26 @@ def deleteAllFiles(folderPath):
             except Exception as e:
                 logger.error("Error while deleting files: ", str(e))
 
-def rename_graph_name(folderPath, filename):
+def rename_graph_name(folderpath, filename):
     if filename.endswith('.png') or filename.endswith('.svg'):
         if filename.endswith('514.png'):
-            os.rename(filename, 'musc-cx2-sw1-time-500m-dia.png')
+            os.rename(folderpath + filename, 'musc-cx2-sw1-time-500m-dia.png')
         elif filename.endswith('512.png'):
-            os.rename(filename, 'musc-aims-sw1-maxis-500m-dia.png')
+            os.rename(folderpath + filename, 'musc-aims-sw1-maxis-500m-dia.png')
         elif filename.endswith('515.png'):
-            os.rename(filename, 'musc-cx2-sw1-myix-1g-cx2.png')
+            os.rename(folderpath + filename, 'musc-cx2-sw1-myix-1g-cx2.png')
         elif filename.endswith('513.png'):
-            os.rename(filename, 'musc-aims-sw-myix-1g-aims.png')
+            os.rename(folderpath + filename, 'musc-aims-sw-myix-1g-aims.png')
         elif filename.endswith('508.png'):
-            os.rename(filename, 'musc-9-5-gw1-myren-300m-ppl.png')
+            os.rename(folderpath + filename, 'musc-9-5-gw1-myren-300m-ppl.png')
         elif filename.endswith('507.png'):
-            os.rename(filename, 'musc-9-5-gw1-1g-pll-to-cx2.png')
+            os.rename(folderpath + filename, 'musc-9-5-gw1-1g-pll-to-cx2.png')
         elif filename.endswith('510.png'):
-            os.rename(filename, 'musc-2-0-gw1-1g-pll-to-aims.png')
+            os.rename(folderpath + filename, 'musc-2-0-gw1-1g-pll-to-aims.png')
         elif filename.endswith('523.png'):
-            os.rename(filename, 'musc-vss-core-csjb-300m-pll.png')
+            os.rename(folderpath + filename, 'musc-vss-core-csjb-300m-pll.png')
         elif filename.endswith('1281.png'):
-            os.rename(filename, 'musc-9-5-bds1-smp-100m-pll.png')
+            os.rename(folderpath + filename, 'musc-9-5-bds1-smp-100m-pll.png')
 
 # Function to attach files as MIMEApplication to the email
 def attach_file_to_email(email_message, filename):
