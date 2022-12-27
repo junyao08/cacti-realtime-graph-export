@@ -33,7 +33,7 @@ def zip_rename_file(imageDir):
   
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
-    zip_filename = os.path.join('/var/www/html/ftp_file/', '{}.zip'.format(timestamp)) 
+    zip_filename = os.path.join('/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/archive/', '{}.zip'.format(timestamp)) 
 
     # writing files to a zipfile
     with ZipFile(zip_filename,'w') as zip:
