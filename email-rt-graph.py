@@ -105,8 +105,7 @@ email_message.attach(MIMEText(html, "html"))
 imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
 
 for image in os.listdir(imagePath):
-    image_path = os.path.join(imagePath, image)
-    rename_graph_name(image_path, image)
+    rename_graph_name(imagePath, image)
 logger.debug("All files renamed")
 
 # Attached PNG image to email
