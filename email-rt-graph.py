@@ -51,6 +51,27 @@ def deleteAllFiles(folderPath):
             except Exception as e:
                 logger.error("Error while deleting files: ", str(e))
 
+def rename_graph_name(folderPath, filename):
+    if filename.endswith('.png') or filename.endswith('.svg'):
+        if filename.endswith('514.png'):
+            os.rename(filename, 'musc-cx2-sw1-time-500m-dia.png')
+        elif filename.endswith('512.png'):
+            os.rename(filename, 'musc-aims-sw1-maxis-500m-dia.png')
+        elif filename.endswith('515.png'):
+            os.rename(filename, 'musc-cx2-sw1-myix-1g-cx2.png')
+        elif filename.endswith('513.png'):
+            os.rename(filename, 'musc-aims-sw-myix-1g-aims.png')
+        elif filename.endswith('508.png'):
+            os.rename(filename, 'musc-9-5-gw1-myren-300m-ppl.png')
+        elif filename.endswith('507.png'):
+            os.rename(filename, 'musc-9-5-gw1-1g-pll-to-cx2.png')
+        elif filename.endswith('510.png'):
+            os.rename(filename, 'musc-2-0-gw1-1g-pll-to-aims.png')
+        elif filename.endswith('523.png'):
+            os.rename(filename, 'musc-vss-core-csjb-300m-pll.png')
+        elif filename.endswith('1281.png'):
+            os.rename(filename, 'musc-9-5-bds1-smp-100m-pll.png')
+
 # Function to attach files as MIMEApplication to the email
 def attach_file_to_email(email_message, filename):
     # Open the attachment file for reading in binary mode, and make it a MIMEApplication class
@@ -82,7 +103,11 @@ email_message.attach(MIMEText(html, "html"))
 
 # Get the image path
 imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
-#imagePath = os.path.abspath("/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/")
+
+for image in os.listdir(imagePath):
+    image_path = os.path.join(imagePath, image)
+    rename_graph_name(image_path, image)
+logger.debug("All files renamed")
 
 # Attached PNG image to email
 for image in os.listdir(imagePath):
