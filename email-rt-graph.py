@@ -80,7 +80,7 @@ def attach_file_to_email(email_message, filename):
         try:
             with open(filename, "rb") as f:
                 img = MIMEImage(f.read())
-                email_message.add_header('Content-Disposition', 'attachment', filename=os.path.basename(filename))
+                email_message.add_header('Content-Disposition', 'attachment', filename=filename)
                 email_message.attach(img)
                 logger.debug("File attached: " + filename)
         except Exception as e:
