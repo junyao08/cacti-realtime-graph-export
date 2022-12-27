@@ -66,6 +66,7 @@ def attach_file_to_email(email_message, filename):
 # Set up the email addresses and password. Please replace below with your email address and password
 email_from = 'netmon.monash.edu.my@netmon.monash.edu.my'
 email_to = 'monash@idgs.my'
+cc = ['eugenewong@idgs.my']
 
 smtp_server = 'localhost'
 smtp_port = 587
@@ -76,6 +77,7 @@ email_message = MIMEMultipart()
 email_message['From'] = email_from
 email_message['To'] = email_to
 email_message['Subject'] = f'Netmon - Realtime Graph'
+email_message['Cc'] = ','.join(cc)
 
 # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
 email_message.attach(MIMEText(html, "html"))
