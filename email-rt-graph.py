@@ -65,8 +65,7 @@ def attach_file_to_email(email_message, filename):
 
 # Set up the email addresses and password. Please replace below with your email address and password
 email_from = 'netmon.monash.edu.my@netmon.monash.edu.my'
-email_to = 'monash@idgs.my'
-cc = ['eugenewong@idgs.my']
+email_to = 'tinesh.ragindran@monash.edu, lim.teckyee@monash.edu, james.chia@monash.edu, tohseng@idgs.my'
 
 smtp_server = 'localhost'
 smtp_port = 587
@@ -77,7 +76,6 @@ email_message = MIMEMultipart()
 email_message['From'] = email_from
 email_message['To'] = email_to
 email_message['Subject'] = f'Netmon - Realtime Graph'
-email_message['Cc'] = ','.join(cc)
 
 # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
 email_message.attach(MIMEText(html, "html"))
@@ -105,7 +103,7 @@ try:
         server.set_debuglevel(1)
         logger.debug('Sending the email')
         start_time = time.time()
-        server.sendmail(email_from, email_to, email_string)
+        server.sendmail(email_from, email_to.split(','), email_string)
         end_time = time.time()
         logger.debug(f'Email sent in {end_time - start_time:.2f} seconds')
         server.close()

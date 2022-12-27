@@ -1,0 +1,54 @@
+2022-12-27 12:08:35,649 - my_logger - DEBUG - /Users/wongjunyao/Projects/python-projects
+2022-12-27 12:08:35,649 - my_logger - DEBUG - Creating the email message
+2022-12-27 12:08:35,650 - my_logger - DEBUG - Png files attached successfully
+2022-12-27 12:08:35,651 - my_logger - DEBUG - Convert it as a string
+2022-12-27 12:08:35,651 - my_logger - DEBUG - Connecting to the SMTP server
+2022-12-27 12:08:37,040 - my_logger - DEBUG - Sending the email
+2022-12-27 12:08:39,588 - my_logger - DEBUG - Email sent in 2.55 seconds
+2022-12-27 12:08:39,589 - my_logger - DEBUG - Disconnecting from the SMTP server
+2022-12-27 12:08:39,592 - my_logger - DEBUG - PNG deleted
+2022-12-27 12:10:29,892 - my_logger - DEBUG - /Users/wongjunyao/Projects/python-projects
+2022-12-27 12:10:29,892 - my_logger - DEBUG - Creating the email message
+2022-12-27 12:10:29,893 - my_logger - DEBUG - Png files attached successfully
+2022-12-27 12:10:29,893 - my_logger - DEBUG - Convert it as a string
+2022-12-27 12:10:29,894 - my_logger - DEBUG - Connecting to the SMTP server
+2022-12-27 12:10:31,074 - my_logger - DEBUG - Sending the email
+2022-12-27 12:10:32,768 - my_logger - DEBUG - Email sent in 1.69 seconds
+2022-12-27 12:10:32,769 - my_logger - DEBUG - Disconnecting from the SMTP server
+2022-12-27 12:10:32,769 - my_logger - DEBUG - PNG deleted
+2022-12-27 12:12:35,505 - my_logger - DEBUG - /Users/wongjunyao/Projects/python-projects
+2022-12-27 12:12:35,505 - my_logger - DEBUG - Creating the email message
+2022-12-27 12:12:35,506 - my_logger - DEBUG - Png files attached successfully
+2022-12-27 12:12:35,506 - my_logger - DEBUG - Convert it as a string
+2022-12-27 12:12:35,506 - my_logger - DEBUG - Connecting to the SMTP server
+2022-12-27 12:12:36,727 - my_logger - DEBUG - Sending the email
+2022-12-27 12:12:38,501 - my_logger - DEBUG - Email sent in 1.77 seconds
+2022-12-27 12:12:38,501 - my_logger - DEBUG - Disconnecting from the SMTP server
+2022-12-27 12:12:38,502 - my_logger - DEBUG - PNG deleted
+2022-12-27 12:14:18,980 - my_logger - DEBUG - /Users/wongjunyao/Projects/python-projects
+2022-12-27 12:14:18,981 - my_logger - DEBUG - Creating the email message
+2022-12-27 12:14:18,981 - my_logger - DEBUG - Png files attached successfully
+2022-12-27 12:14:18,983 - my_logger - DEBUG - Convert it as a string
+2022-12-27 12:14:18,983 - my_logger - DEBUG - Connecting to the SMTP server
+2022-12-27 12:14:20,173 - my_logger - DEBUG - Sending the email
+2022-12-27 12:14:21,735 - my_logger - DEBUG - Email sent in 1.56 seconds
+2022-12-27 12:14:21,736 - my_logger - DEBUG - Disconnecting from the SMTP server
+2022-12-27 12:14:21,737 - my_logger - DEBUG - PNG deleted
+2022-12-27 12:15:11,310 - my_logger - DEBUG - /Users/wongjunyao/Projects/python-projects
+2022-12-27 12:15:11,310 - my_logger - DEBUG - Creating the email message
+2022-12-27 12:15:11,310 - my_logger - DEBUG - Png files attached successfully
+2022-12-27 12:15:11,312 - my_logger - DEBUG - Convert it as a string
+2022-12-27 12:15:11,312 - my_logger - DEBUG - Connecting to the SMTP server
+2022-12-27 12:15:12,824 - my_logger - DEBUG - Sending the email
+2022-12-27 12:15:14,606 - my_logger - DEBUG - Email sent in 1.78 seconds
+2022-12-27 12:15:14,607 - my_logger - DEBUG - Disconnecting from the SMTP server
+2022-12-27 12:15:14,607 - my_logger - DEBUG - PNG deleted
+2022-12-27 12:16:36,911 - my_logger - DEBUG - /Users/wongjunyao/Projects/python-projects
+2022-12-27 12:16:36,911 - my_logger - DEBUG - Creating the email message
+2022-12-27 12:16:36,912 - my_logger - DEBUG - Png files attached successfully
+2022-12-27 12:16:36,913 - my_logger - DEBUG - Convert it as a string
+2022-12-27 12:16:36,913 - my_logger - DEBUG - Connecting to the SMTP server
+2022-12-27 12:16:38,185 - my_logger - DEBUG - Sending the email
+2022-12-27 12:16:40,385 - my_logger - DEBUG - Email sent in 2.20 seconds
+2022-12-27 12:16:40,386 - my_logger - DEBUG - Disconnecting from the SMTP server
+2022-12-27 12:16:40,387 - my_logger - DEBUG - PNG deleted

@@ -23,6 +23,11 @@ handler.setFormatter(formatter)
 # Add the handler to the logger
 logger.addHandler(handler)
 
+abspath = os.path.abspath(os.path.dirname(__file__))
+dname = os.path.dirname(abspath)
+os.chdir(dname)
+logger.debug(dname)
+
 # Define the HTML document
 html = '''
     <html>
@@ -44,7 +49,7 @@ def deleteAllFiles(folderPath):
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
             except Exception as e:
-                logger.error("Error while deleting files")
+                logger.error("Error while deleting files: ", str(e))
 
 # Function to attach files as MIMEApplication to the email
 def attach_file_to_email(email_message, filename):
@@ -56,15 +61,15 @@ def attach_file_to_email(email_message, filename):
                 email_message.attach(img)
                 logger.debug("File attached: " + filename)
         except Exception as e:
-            logger.error('Error sending png: ', e)
+            logger.error('Error sending png: ', str(e))
 
 # Set up the email addresses and password. Please replace below with your email address and password
-email_from = 'netmon.monash.edu.my@netmon.monash.edu.my'
-email_to = 'eugenewong@idgs.my'
-cc = ['james.chia@monash.edu', 'tinesh.ragindran@monash.edu', 'lim.teckyee@monash.edu', 'tohseng@idgs.my']
-bcc = ['tohseng@idgs.my', 'eugenewong@idgs.my']
+#email_from = 'netmon.monash.edu.my@netmon.monash.edu.my'
+email_from = 'eugenewong@idgs.my'
+email_to = 'eugenewong@idgs.my, eugenewong@etech.com.my, junyao5071@gmail.com'
+cc = ['eugenewong@etech.com.my', 'junyao5071@gmail.com', 'eugenewong@gmail.com']
 
-smtp_server = 'localhost'
+smtp_server = 'smtp.gmail.com'
 smtp_port = 587
 
 # Create a MIMEMultipart class, and set up the From, To, Subject fields
@@ -72,20 +77,20 @@ logger.debug('Creating the email message')
 email_message = MIMEMultipart()
 email_message['From'] = email_from
 email_message['To'] = email_to
-email_message['Subject'] = f'Netmon - Realtime Graph'
-#email_message['Cc'] = ', '.join(cc)
-#email_message['Bcc'] = ', '.join(bcc)
+email_message['Subject'] = f'test'
+email_message['Cc'] = 'eugenewong@etech.com.my, junyao5071@gmail.com, eugenewong@gmail.com'
 
 # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
 email_message.attach(MIMEText(html, "html"))
 
 # Get the image path
-#imagePath = "/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/"
-imagePath = os.path.abspath(".")
+imagePath = "."
+#imagePath = os.path.abspath("/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/")
 
 # Attached PNG image to email
 for image in os.listdir(imagePath):
-    attach_file_to_email(email_message, image)
+    image_path = os.path.join(imagePath, image)
+    attach_file_to_email(email_message, image_path)
 logger.debug('Png files attached successfully')
 
 # Convert it as a string
@@ -99,17 +104,16 @@ try:
     with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.starttls()
         server.set_debuglevel(1)
+        server.login(email_from, password)
         logger.debug('Sending the email')
         start_time = time.time()
-        server.sendmail(email_from, email_to, email_string)
+        server.sendmail(email_from, email_to.split(','), email_string)
         end_time = time.time()
         logger.debug(f'Email sent in {end_time - start_time:.2f} seconds')
         server.close()
         logger.debug('Disconnecting from the SMTP server')
-        server.quit()
-    deleteAllFiles(imagePath)
-    logger.debug('PNG deleted')
 except Exception as e:
-    logger.error("Sending Error:", e)
+    logger.error("Sending Error:", str(e))
 
-
+deleteAllFiles(imagePath)
+logger.debug('PNG deleted')
