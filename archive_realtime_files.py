@@ -2,11 +2,10 @@ import os
 import datetime
 from zipfile import ZipFile
 
-# abspath = os.path.abspath(os.path.dirname(__file__))
-# dname = os.path.dirname(abspath)
-# os.chdir(dname)
+abspath = os.path.abspath(os.path.dirname(__file__))
+dname = os.path.dirname(abspath)
+os.chdir(dname)
 
-    
 # Function to delete realtime graph that has been sent.
 def deleteAllFiles(folderPath):
     for file in os.listdir(folderPath):
@@ -42,7 +41,7 @@ def zip_rename_file(imageDir):
     print('All files zipped successfully!')        
 
 
-imagedirectory = '.'
+imagedirectory = '/home/netmon.monash.edu.my/public_html/cacti-1.2.20/cache/realtime/'
 
 get_all_graphs(imagedirectory)
 zip_rename_file(imagedirectory)
